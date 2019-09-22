@@ -23,6 +23,11 @@ function calImages = calTargetMultiView(varargin)
     % Number of targets to render per camera
     nTargs = size(targetOrigin, 1);
     
+    % Open a new figure
+    if makePlots
+        figure;
+    end
+    
     for k = 1 : length(Cameras)
 
         % Ger the current camera
@@ -64,7 +69,6 @@ function calImages = calTargetMultiView(varargin)
 
         % Plot the images
         if makePlots
-        figure(1);
             subtightplot(2, 2, k, [0.1, 0.1]);
             imagesc(imgArr(:, :, 1));
             axis image;
@@ -78,7 +82,7 @@ function calImages = calTargetMultiView(varargin)
     end
 
     if makePlots
-        figure(2);
+        figure;
         plotCameraArrangement('Cameras', Cameras, 'points', [xc(:), yc(:), zc(:)]);
     end
     
