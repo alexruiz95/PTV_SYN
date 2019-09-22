@@ -26,7 +26,6 @@ addParameter(p, 'velocityFunctionParams', [], @isstruct);
 addParameter(p, 'save', 'true', @islogical);
 addParameter(p, 'plot', false, @islogical);
 
-
 % Parse the arguments
 parse(p, varargin{:});
 
@@ -64,6 +63,12 @@ particleDiameters = abs(particle_diameter_std * randn(n_particles, 1) ...
 xo = xrange(1) + (xrange(2) - xrange(1)) * rand(n_particles, 1);
 yo = yrange(1) + (yrange(2) - yrange(1)) * rand(n_particles, 1);
 zo = zrange(1) + (zrange(2) - zrange(1)) * rand(n_particles, 1);
+
+% Plot the camera arrangement
+if makePlots
+    figure(1);
+    plotCameraArrangement('cameras', Cameras); 
+end
 
 % Calculate the particle trajectories
 [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
@@ -107,6 +112,7 @@ for t = 1 : length(tSpan)
         
         if makePlots        
             % Make a plot
+            figure(2);
             subtightplot(2, 2, k, [0.1, 0.1]);
             imagesc(particle_image_uint16);
             axis image;
@@ -136,6 +142,8 @@ for t = 1 : length(tSpan)
     % Draw the frame
     drawnow();
 end
+
+
 
 end
 
