@@ -23,6 +23,7 @@ addParameter(p, 'particleDiameterStdDev', 0.15 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
+addParameter(p, 'save', 'true', @islogical);
 addParameter(p, 'plot', false, @islogical);
 
 
@@ -45,6 +46,7 @@ particle_diameter_std = p.Results.particleDiameterStdDev;
 beam_plane_std_dev = p.Results.beamStdDev;
 beam_plane_z = p.Results.BeamPlaneZ;
 velFnParams = p.Results.velocityFunctionParams;
+saveImages = p.Results.save;
 makePlots = p.Results.plot;
 
 % Format string
@@ -125,7 +127,9 @@ for t = 1 : length(tSpan)
         out_path = fullfile(out_dir, sprintf(outNameFmt, t));
         
         % Save the image
-        imwrite(particle_image_uint16, out_path);
+        if saveImages
+            imwrite(particle_image_uint16, out_path);
+        end
         
     end
     
