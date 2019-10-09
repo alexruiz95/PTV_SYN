@@ -7,9 +7,9 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
 
     % Add optional inputs
     addParameter(p, 'dotSpacing', 0.0254, @isnumeric);
-    addParameter(p, 'dotDiameter', 0.005, @isnumeric);
-    addParameter(p, 'rows', 9, @isnumeric);
-    addParameter(p, 'columns', 9, @isnumeric);
+    addParameter(p, 'dotDiameter', 0.0005, @isnumeric); % changed 0.005
+    addParameter(p, 'rows', 8, @isnumeric); % changed 9
+    addParameter(p, 'columns', 8, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
     
