@@ -9,7 +9,7 @@ p = inputParser;
 % Add optional inputs
 addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
 addParameter(p, 'outdir', '.', @isstr);
-addParameter(p, 'outbase', 'frame_', @isstr);
+addParameter(p, 'outbase', 'frame_1', @isstr);
 addParameter(p, 'extension', 'tiff', @isstr);
 addParameter(p, 'zeros', 4, @isnumeric);
 addParameter(p, 'velocityFunction', @burgersVortex, @isFunctionHandle);
@@ -132,7 +132,7 @@ for t = 1 : length(tSpan)
         
         % Save the image
         if saveImages
-            imwrite(particle_image_uint16, out_path);
+            imwrite(uint8(particle_image_uint16/256), out_path);
         end
         
     end
