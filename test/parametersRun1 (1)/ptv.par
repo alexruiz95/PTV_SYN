@@ -1,11 +1,11 @@
 4
-img/Cam1/Cam10000
+img/Cam1/frame_10001
 cal/cam1.tif
-img/Cam2/Cam20000
+img/Cam2/frame_10001
 cal/cam2.tif
-img/Cam3/Cam30000
+img/Cam3/frame_10001
 cal/cam3.tif
-img/Cam4/Cam40000
+img/Cam4/frame_10001
 cal/cam4.tif
 1
 1
@@ -16,6 +16,6 @@ cal/cam4.tif
 0.0065
 0
 1
-1.33
+1
 1.46
 5
