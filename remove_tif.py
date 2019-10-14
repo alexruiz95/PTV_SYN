@@ -10,7 +10,7 @@ if not os.path.isdir(directory):
 filelistA = os.listdir(directory)
 
 
-replacable = '.tif'
+replacable = '.tiff'
 
 for filename in filelistA:
     new = filename.replace(replacable,'')
