@@ -14,6 +14,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
     addParameter(p, 'columns', 5, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
+
     
     % Parse the arguments
     parse(p, varargin{:});
@@ -25,6 +26,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
     dot_cols = p.Results.columns;
     target_origin   = p.Results.origin;
     particles_per_dot = p.Results.particlesPerDot;
+
  
     % Number of dots
     nDots = dot_rows * dot_cols;
@@ -46,7 +48,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
 %     xdots=cat(1,xdots,xdots1(:));
 %     ydots=cat(1,ydots,ydots1(:));
 %     zdots=cat(1,zdots,zdots1(:));
-        xdots=cat(1,xdots*.1,xdots1(:));
+    xdots=cat(1,xdots*.1,xdots1(:));
     ydots=cat(1,ydots*.1,ydots1(:));
     zdots=cat(1,zdots*.1,zdots1(:));
     nDots = length(xdots);
@@ -79,5 +81,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
         y(:, n) = yraw + yc(n);
         z(:, n) = zraw + zc(n);
     end
+    
+    
     
 end

@@ -7,9 +7,20 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'plot', false, @islogical);
     addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
     addParameter(p, 'targetOrigin', [0,0,0], @isnumeric);
+    addParameter(p, 'cal_dir', 'cal', @isstr);
+    addParameter(p, 'save', 'true', @islogical);
+    addParameter(p, 'outbase', 'cam', @isstr);
+    addParameter(p, 'zeros', 1, @isnumeric);
+    addParameter(p, 'extension', 'tiff', @isstr);
     
     % Parse the arguments
     parse(p, varargin{:});
+    % cal image save
+    cal_out = p.Results.cal_dir;
+    saveImages = p.Results.save;
+    out_base = p.Results.outbase;
+    nZeros = p.Results.zeros;
+    out_ext = p.Results.extension;
 
     % Results structure
     makePlots = p.Results.plot;
@@ -65,7 +76,7 @@ function calImages = calTargetMultiView(varargin)
         end
 
         % Save results to the output structure
-        calImages{k} = imgArr;
+        calImages{k} = flipud(imgArr);
 
         % Plot the images
         if makePlots
@@ -79,6 +90,25 @@ function calImages = calTargetMultiView(varargin)
             set(gca, 'ydir', 'normal');
             set(gcf, 'color', 'white');
         end
+        
+        
+        out_dir = cal_out; %fullfile(cal_out, sprintf('Cam%d', k));
+        if(~exist(out_dir, 'dir'))
+            mkdir(out_dir);
+        end
+        fmtStr = sprintf('%%0%dd', nZeros);
+        outNameFmt = sprintf('%s%s.%s', out_base, fmtStr, out_ext);
+        
+        % Where to save the image
+        out_path = fullfile(out_dir, sprintf(outNameFmt, k));
+        
+        % Save the image
+        if saveImages
+            Eight_BIT = uint8(particle_image_uint16/256);
+            flip_image = flipud(Eight_BIT);
+            imwrite(flip_image, out_path);
+        end
+        
     end
 
     if makePlots

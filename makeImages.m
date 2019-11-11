@@ -25,6 +25,7 @@ addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
 addParameter(p, 'save', 'true', @islogical);
 addParameter(p, 'plot', false, @islogical);
+addParameter(p, 'write_to_work', 'true', @islogical);
 
 % Parse the arguments
 parse(p, varargin{:});
@@ -47,6 +48,7 @@ beam_plane_z = p.Results.BeamPlaneZ;
 velFnParams = p.Results.velocityFunctionParams;
 saveImages = p.Results.save;
 makePlots = p.Results.plot;
+write_to_work = p.Results.write_to_work;
 
 % Format string
 fmtStr = sprintf('%%0%dd', nZeros);
@@ -132,15 +134,33 @@ for t = 1 : length(tSpan)
         
         % Save the image
         if saveImages
-            imwrite(uint8(particle_image_uint16/256), out_path);
+            Eight_BIT = uint8(particle_image_uint16/256);
+            flip_image = flipud(Eight_BIT);
+            imwrite(flip_image, out_path);
+%             imwrite(uint8(particle_image_uint16/256), out_path);
         end
         
-    end
-    
+%         if write_to_work
+%             if k ==1
+%                 if t ==1
+%                     g.seq=uint8(particle_image_uint16/256);
+%                     %disp('starting')
+%                 else
+%                     %disp('Appending')
+%                     seq2=uint8(particle_image_uint16/256);
+%                     g.seq = [g.seq ; seq2];
+%                 end
+%             else
+%             end
+%         end
+%         
+%     end
+%     
     % Draw the frame
     drawnow();
 end
 
+% implay(g.seq)
 
 
 end
