@@ -11,8 +11,8 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'save', 'true', @islogical);
     addParameter(p, 'outbase', 'cam', @isstr);
     addParameter(p, 'zeros', 1, @isnumeric);
-    addParameter(p, 'extension', 'tiff', @isstr);
-    
+    addParameter(p, 'extension', 'tif', @isstr);
+    addParameter(p, 'TargetFile', 'false', @islogical);
     % Parse the arguments
     parse(p, varargin{:});
     % cal image save
@@ -21,6 +21,8 @@ function calImages = calTargetMultiView(varargin)
     out_base = p.Results.outbase;
     nZeros = p.Results.zeros;
     out_ext = p.Results.extension;
+    % target file 
+    MakeTargetFile = p.Results.TargetFile;
 
     % Results structure
     makePlots = p.Results.plot;
@@ -116,6 +118,12 @@ function calImages = calTargetMultiView(varargin)
         plotCameraArrangement('Cameras', Cameras, 'points', [xc(:), yc(:), zc(:)]);
     end
     
+    if MakeTargetFile
+        [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
+        count = 1:length(xc);
+        M = [count',xc*1000,yc*1000,zc*1000];
+        dlmwrite([out_dir,'target_file.txt'],M,'delimiter','\t');
+    end
     % Draw the frame
     drawnow();
 
