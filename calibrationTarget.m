@@ -33,11 +33,18 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     
     % Dot centers
     xv = linspace(-targetWidth/2, targetWidth/2, dot_cols)   + target_origin(1);
-    yv = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(2);
+    % lets flip yv here so our points are in the same order for PTV
+    % that is left to right top to bottom
+    %yv = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(2);
+    yv = linspace(targetHeight/2, -targetHeight/2, dot_rows) + target_origin(2);
     zv = target_origin(3);
     
     % Make a grid of dot centers
-    [xdots, ydots, zdots] = meshgrid(xv, yv, zv);
+    % lets flip yv here so our points are in the same order for PTV
+    % that is left to right top to bottom
+%     [xdots, ydots, zdots] = meshgrid(xv, yv, zv);
+    % Better to use ndgrid
+    [xdots, ydots, zdots] = ndgrid(xv, yv, zv);
     
     % Reshape the dot center arrays into vectors
     xc = xdots(:);
