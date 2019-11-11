@@ -22,8 +22,10 @@ for n = 1 : length(Cameras)
    [~, R, t] = getCameraMatrix(Camera);
    
    % Convert from camera matrix to orentation matrix
-   C = 1 * R\t;
+   C = -1 * R\t;
    Rc = inv(R)';
+   % for visual direction
+   Rc = roty(180)*Rc;
    
    % Plot the camera
    plotCamera('location', C, 'orientation', ...
