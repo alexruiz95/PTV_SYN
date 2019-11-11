@@ -18,14 +18,14 @@ addParameter(p, 'yrange', [-1, 1]);
 addParameter(p, 'zrange', [-0.1, 0.1]);
 addParameter(p, 'particleConcentration', 2.5e5, @isnumeric);
 addParameter(p, 'tspan', linspace(0,0.01, 20), @isnumeric);
-addParameter(p, 'particleDiameterMean', 1.5*sqrt(8), @isnumeric);
+addParameter(p, 'particleDiameterMean', 2*sqrt(8), @isnumeric); % 1.5
 addParameter(p, 'particleDiameterStdDev', 0.15 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
-addParameter(p, 'save', 'true', @islogical);
-addParameter(p, 'plot', false, @islogical);
-addParameter(p, 'write_to_work', 'true', @islogical);
+addParameter(p, 'save', false, @islogical);
+addParameter(p, 'plot', true, @islogical);
+addParameter(p, 'write_to_work', true, @islogical);
 
 % Parse the arguments
 parse(p, varargin{:});
@@ -121,25 +121,36 @@ for t = 1 : length(tSpan)
             colormap gray;
             caxis([0, intmax('uint16')]);
             set(gcf, 'color', 'white');
+            % this was missing , you can either flip image of set ydir
+            % reverse
+            set(gca, 'ydir', 'normal');
         end
         
-        % Output path
-        out_dir = fullfile(out_root, sprintf('Cam%d', k));
-        if(~exist(out_dir, 'dir'))
-            mkdir(out_dir);
-        end
+%         % Output path
+%         out_dir = fullfile(out_root, sprintf('Cam%d', k));
+%         if(~exist(out_dir, 'dir'))
+%             mkdir(out_dir);
+%         end
+%         
+%         % Where to save the image
+%         out_path = fullfile(out_dir, sprintf(outNameFmt, t));
         
-        % Where to save the image
-        out_path = fullfile(out_dir, sprintf(outNameFmt, t));
-        
-        % Save the image
+        % Save the image % we shouldnt make the folders if we dont want to
+        % save
         if saveImages
+            out_dir = fullfile(out_root, sprintf('Cam%d', k));
+            if(~exist(out_dir, 'dir'))
+                mkdir(out_dir);
+            end
+            % Where to save the image
+            out_path = fullfile(out_dir, sprintf(outNameFmt, t));
             Eight_BIT = uint8(particle_image_uint16/256);
             flip_image = flipud(Eight_BIT);
             imwrite(flip_image, out_path);
 %             imwrite(uint8(particle_image_uint16/256), out_path);
         end
-        
+       
+            
 %         if write_to_work
 %             if k ==1
 %                 if t ==1
@@ -156,8 +167,10 @@ for t = 1 : length(tSpan)
 %         
 %     end
 %     
-    % Draw the frame
+    %Draw the frame
     drawnow();
+%     ff=getframe;
+%     g(t).seq=ff;
 end
 
 % implay(g.seq)
