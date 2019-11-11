@@ -40,11 +40,24 @@ z_dir = cat(1,z_dir,z');
 
 x_dir =1* cat(1,x_dir,z');
 y_dir = 1*cat(1,y_dir,del');
-z_dir = 1*cat(1,z_dir,x'+ max(y_dir)*.5);
+z_dir = 1*cat(1,z_dir,x'+ max(y_dir)*.8);
+
+z_max = max(z_dir);
+x_max = max(x_dir);
+f=polyfit([0,z_max],[x_max,0],2);
+xxx=linspace(0,x_max,40);
+pp = polyval(f,xxx)
+y = zeros(size(pp));
 
 
+x_dir =1* cat(1,x_dir,xxx');
+y_dir = 1*cat(1,y_dir,y');
+z_dir = 1*cat(1,z_dir,pp');
 % ax1 = subplot(1,1,1);
+
 % plot3(x_dir,y_dir,z_dir,'.')
+
+
 % v = [-5 -5 5];
 % view(v)
 % xlabel('X')
