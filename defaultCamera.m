@@ -5,7 +5,7 @@ function CAMERA = defaultCamera()
     CAMERA = struct();
         
     % Populate  Camera parameters
-    CAMERA.FocalLength      = 0.105;   % Meters
+    CAMERA.FocalLength      = -0.105;   % Meters
     CAMERA.PixelHeight      = 1.7E-5;  % Meters
     CAMERA.PixelWidth       = 1.7E-5;  % Meters
     CAMERA.PixelRows        = 1024;    % Pixels
