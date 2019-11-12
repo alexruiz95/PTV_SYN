@@ -7,12 +7,12 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'plot', false, @islogical);
     addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
     addParameter(p, 'targetOrigin', [0,0,0], @isnumeric);
-    addParameter(p, 'cal_dir', 'cal', @isstr);
-    addParameter(p, 'save', 'true', @islogical);
+    addParameter(p, 'cal_dir', 'test/cal', @isstr);
+    addParameter(p, 'save', true, @islogical);
     addParameter(p, 'outbase', 'cam', @isstr);
     addParameter(p, 'zeros', 1, @isnumeric);
     addParameter(p, 'extension', 'tif', @isstr);
-    addParameter(p, 'TargetFile', 'false', @islogical);
+    addParameter(p, 'TargetFile', true, @islogical);
     % Parse the arguments
     parse(p, varargin{:});
     % cal image save
@@ -78,7 +78,8 @@ function calImages = calTargetMultiView(varargin)
         end
 
         % Save results to the output structure
-        calImages{k} = flipud(imgArr);
+        % calImages{k} = flipud(imgArr);
+        calImages{k} = imgArr;
 
         % Plot the images
         if makePlots
@@ -106,9 +107,10 @@ function calImages = calTargetMultiView(varargin)
         
         % Save the image
         if saveImages
-            Eight_BIT = uint8(particle_image_uint16/256);
+            Eight_BIT = im2uint8(particle_image_uint16);%uint8(particle_image_uint16/256);
             flip_image = flipud(Eight_BIT);
             imwrite(flip_image, out_path);
+          
         end
         
     end
@@ -122,7 +124,7 @@ function calImages = calTargetMultiView(varargin)
         [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
         count = 1:length(xc);
         M = [count',xc*1000,yc*1000,zc*1000];
-        dlmwrite([out_dir,'target_file.txt'],M,'delimiter','\t');
+        dlmwrite('test/cal/target_file.txt',M,'delimiter','\t');
     end
     % Draw the frame
     drawnow();

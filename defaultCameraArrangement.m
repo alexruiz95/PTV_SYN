@@ -2,13 +2,13 @@ function CAMERAS = defaultCameraArrangement()
    
     % Camera positions  % 
     % AR Adding these x_p y_p z_p I think the defaults where to high 
-    x_p = .08;
-    y_p = .09;
-    z_p = 1;
+    x_p = .6;
+    y_p = .6;
+    z_p = .6;
     
     tx = x_p * [-1, 1, -1, 1];
-    ty = y_p * [1,  1, -1, -1];
-    tz = z_p * [1, 1, 1, 1];
+    ty = y_p * [1,  1, -1, -.75];
+    tz = z_p * [1, 1, 1, .75];
     
     % Number of cameras
     nCameras = length(tx);

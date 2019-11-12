@@ -17,9 +17,9 @@ addParameter(p, 'xrange', [-1, 1]);
 addParameter(p, 'yrange', [-1, 1]);
 addParameter(p, 'zrange', [-0.1, 0.1]);
 addParameter(p, 'particleConcentration', 2.5e5, @isnumeric);
-addParameter(p, 'tspan', linspace(0,0.01, 20), @isnumeric);
+addParameter(p, 'tspan', linspace(0,0.01, 30), @isnumeric);
 addParameter(p, 'particleDiameterMean', 2*sqrt(8), @isnumeric); % 1.5
-addParameter(p, 'particleDiameterStdDev', 0.15 * sqrt(8), @isnumeric);
+addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);

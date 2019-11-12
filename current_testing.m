@@ -24,7 +24,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Lets try to get the data from CalibrationTarget.m
-[x,y,z, xc, yc, zc] = calibrationTarget('dotSpacing', 0.0254,'dotDiameter', 0.0005,'rows', 8,'columns', 8,'origin', [0,0,0],'particlesPerDot', 1e3)
+[x,y,z, xc, yc, zc] = calibrationTarget_3('dotSpacing', 0.0254,'dotDiameter', 0.0005,'rows', 8,'columns', 8,'origin', [0,0,0],'particlesPerDot', 1e3)
 plot3(xc,yc,zc,'.')
 % plot3(x,y,z,'*')  % These dont give a 3D points 
 % Save the target file for calibration :
@@ -36,7 +36,7 @@ xs=xs(:);
 ys=flip(ys(:));
 
 count = 1:length(xc);
-M = [count',xs*1000,ys*1000,zc*1000];
+M = [count',xc*1000,yc*1000,zc*1000];
 % dlmwrite('target_file.txt',M,'delimiter',' ');
 
 % Target file is not in world cordinates. 

@@ -7,7 +7,7 @@ function CAMERA = defaultCamera()
     % Populate  Camera parameters
     CAMERA.FocalLength      = -0.105;   % Meters
     CAMERA.PixelHeight      = 1.7E-5;  % Meters
-    CAMERA.PixelWidth       = 1.7E-5;  % Meters
+    CAMERA.PixelWidth       = 1.7E-5;  % Meters1.7E-5;
     CAMERA.PixelRows        = 1024;    % Pixels
     CAMERA.PixelColumns     = 1024;    % Pixels
     CAMERA.SensorNoiseStd   = 0.05;    % Fraction of saturation intensity

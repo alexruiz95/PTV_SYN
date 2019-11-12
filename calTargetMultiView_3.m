@@ -1,17 +1,17 @@
-function calImages = calTargetMultiView(varargin)
+function calImages = calTargetMultiView_3(varargin)
 
     % Input parser
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'plot', false, @islogical);
+    addParameter(p, 'plot', true, @islogical);
     addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
     addParameter(p, 'targetOrigin', [0,0,0], @isnumeric);
-    addParameter(p, 'cal_dir', 'cal', @isstr);
-    addParameter(p, 'save', 'true', @islogical);
+    addParameter(p, 'cal_dir', 'test/cal', @isstr);
+    addParameter(p, 'save', true, @islogical);
     addParameter(p, 'outbase', 'cam', @isstr);
-    addParameter(p, 'zeros', 4, @isnumeric);
-    addParameter(p, 'extension', 'tiff', @isstr);
+    addParameter(p, 'zeros', 1, @isnumeric);
+    addParameter(p, 'extension', 'tif', @isstr);
     % Parse the arguments
     parse(p, varargin{:});
     
@@ -109,7 +109,7 @@ function calImages = calTargetMultiView(varargin)
 
         % Save the image
         if saveImages
-            Eight_BIT = uint8(particle_image_uint16/256);
+            Eight_BIT = uint8(particle_image_uint16);
             flip_image = flipud(Eight_BIT);
             imwrite(flip_image, out_path);
         end

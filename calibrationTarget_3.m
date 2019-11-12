@@ -8,10 +8,10 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'dotSpacing', 0.0254, @isnumeric);
+    addParameter(p, 'dotSpacing', 0.0154, @isnumeric);%.0254
     addParameter(p, 'dotDiameter', 0.0005, @isnumeric); % changed 0.005
-    addParameter(p, 'rows', 5, @isnumeric); % changed 9
-    addParameter(p, 'columns', 5, @isnumeric); % changed 9
+    addParameter(p, 'rows', 8, @isnumeric); % changed 9
+    addParameter(p, 'columns', 8, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
 
@@ -37,21 +37,27 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
     
     % Dot centers
     xv = linspace(-targetWidth/2, targetWidth/2, dot_cols)   + target_origin(1);
-    yv = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(2);
+    yv = linspace(targetHeight/2, -targetHeight/2, dot_rows) + target_origin(2);
+    zv1 = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(3);
+    
     zv = target_origin(3);
     
     % Make a grid of dot centers
-    [xdots1, ydots1, zdots1] = meshgrid(xv, yv, zv);
+    [xx,zz] = meshgrid(xv, zv1);
+    zz=sqrt(zz.^2);
+    [xdots, ydots, zdots] = ndgrid(xv, yv, zv);
+    zdots=zz/2;
+%     plot3(xdots,ydots,zdots,'.');
 
-    [xdots,ydots,zdots] = make_axis3();
-    
-%     xdots=cat(1,xdots,xdots1(:));
-%     ydots=cat(1,ydots,ydots1(:));
-%     zdots=cat(1,zdots,zdots1(:));
-    xdots=cat(1,xdots*.1,xdots1(:));
-    ydots=cat(1,ydots*.1,ydots1(:));
-    zdots=cat(1,zdots*.1,zdots1(:));
-    nDots = length(xdots);
+    [xdots1,ydots1,zdots1] = make_axis3();
+%     
+    xdots=cat(1,xdots(:),xdots1(:)*.1);
+    ydots=cat(1,ydots(:),ydots1(:)*.1);
+    zdots=cat(1,zdots(:),zdots1(:)*.1);
+%     xdots=cat(1,xdots*.1,xdots1(:));
+%     ydots=cat(1,ydots*.1,ydots1(:));
+%     zdots=cat(1,zdots*.1,zdots1(:));
+%     nDots = length(xdots);
     
 %     xdots = [-0.025400,-0.025400,-0.025400,0.000];
 %     ydots = [-0.025400,0.000,0.025400,0.025400];
@@ -64,6 +70,8 @@ function [x,y,z, xc, yc, zc] = calibrationTarget_3(varargin)
     xc = xdots(:);
     yc = ydots(:);
     zc = zdots(:);
+    nDots = length(xc);
+%     plot3(xc,yc,zc,'.')
     % Allocate array to hold all the [x,y,z] points
     x = zeros(particles_per_dot, nDots);
     y = zeros(particles_per_dot, nDots);
