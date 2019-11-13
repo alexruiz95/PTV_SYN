@@ -6,7 +6,7 @@ function CAMERA = defaultCamera()
         
     % Populate  Camera parameters
     CAMERA.FocalLength      = -0.105;   % Meters
-    CAMERA.PixelHeight      = 1.7E-5;  % Meters
+    CAMERA.PixelHeight      = 1.7E-5;  % Meters 0.0065 mm
     CAMERA.PixelWidth       = 1.7E-5;  % Meters1.7E-5;
     CAMERA.PixelRows        = 1024;    % Pixels
     CAMERA.PixelColumns     = 1024;    % Pixels
@@ -16,7 +16,6 @@ function CAMERA = defaultCamera()
     CAMERA.Eye              = [0,0,1]; % Meters
     CAMERA.Center           = [0,0,0]; % Meters
     CAMERA.Up               = [0,1,0]; % Unit vector    
-      
 end
 
 

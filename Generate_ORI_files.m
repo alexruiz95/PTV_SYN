@@ -38,7 +38,7 @@ for n = 1 : length(Cameras)
    dlmwrite(file_name,' ','delimiter','\t','-append') % Add a space 
    dlmwrite(file_name,[0.0000 0.0000],'-append','delimiter','\t','precision','%.3f') % Xp Yp
    dlmwrite(file_name,40,'-append','precision','%.3f') % BACK Focal distance should be in
-   dlmwrite(file_name,[0.001 0.001 -1],'-append','delimiter','\t','precision','%.3f') % Last line
+   dlmwrite(file_name,[0.001 0.001 190],'-append','delimiter','\t','precision','%.3f') % Last line
    
    
 %    ori_matrix{n} = Rc
