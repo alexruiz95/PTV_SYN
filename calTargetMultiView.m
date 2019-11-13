@@ -13,6 +13,7 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'zeros', 1, @isnumeric);
     addParameter(p, 'extension', 'tif', @isstr);
     addParameter(p, 'TargetFile', true, @islogical);
+    addParameter(p, 'target_3D', false, @islogical);
     % Parse the arguments
     parse(p, varargin{:});
     % cal image save
@@ -23,6 +24,7 @@ function calImages = calTargetMultiView(varargin)
     out_ext = p.Results.extension;
     % target file 
     MakeTargetFile = p.Results.TargetFile;
+    target3D = p.Results.target_3D;
 
     % Results structure
     makePlots = p.Results.plot;
@@ -52,7 +54,7 @@ function calImages = calTargetMultiView(varargin)
         for n = 1 : nTargs
 
             % Get particle coordinates to render a calibration target
-            [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
+            [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D);
 
             % Create a normal distribution of particle diameters
             particleDiameters = sqrt(8) * ones(numel(x), 1);
