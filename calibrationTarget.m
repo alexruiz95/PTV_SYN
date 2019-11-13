@@ -12,11 +12,13 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     addParameter(p, 'columns', 5, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
+    addParameter(p, 'target_3D', false, @islogical);
     
     % Parse the arguments
     parse(p, varargin{:});
 
     % Results structure
+    target3D = p.Results.target_3D;
     dot_spacing_m = p.Results.dotSpacing;
     dot_diameter_m   = p.Results.dotDiameter;
     dot_rows = p.Results.rows;
@@ -38,6 +40,8 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     %yv = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(2);
     yv = linspace(targetHeight/2, -targetHeight/2, dot_rows) + target_origin(2);
     zv = target_origin(3);
+    zv1 = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(3);
+
     
     % Make a grid of dot centers
     % lets flip yv here so our points are in the same order for PTV
@@ -45,7 +49,12 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
 %     [xdots, ydots, zdots] = meshgrid(xv, yv, zv);
     % Better to use ndgrid
     [xdots, ydots, zdots] = ndgrid(xv, yv, zv);
-    
+    if target3D
+            % Make a grid of dot centers
+        [xx,zz] = meshgrid(xv, zv1);
+        zz=sqrt(zz.^2);
+        zdots=zz/2;
+    end
     % Reshape the dot center arrays into vectors
     xc = xdots(:);
     yc = ydots(:);
