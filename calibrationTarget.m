@@ -13,6 +13,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
     addParameter(p, 'target_3D', false, @islogical);
+    addParameter(p, 'make_axis', false, @islogical);
     
     % Parse the arguments
     parse(p, varargin{:});
@@ -28,6 +29,9 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
  
     % Number of dots
     nDots = dot_rows * dot_cols;
+    
+    % make axis 
+    MakeAxis = p.Results.make_axis;
     
     % Width of target (center of first dot to center of last dot)
     targetWidth =  (dot_cols - 1) * dot_spacing_m;
@@ -55,10 +59,21 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
         zz=sqrt(zz.^2);
         zdots=zz/2;
     end
+    
+    % used to check image direction 
+    if MakeAxis
+        [xdots1,ydots1,zdots1] = make_axis3();
+        xdots=cat(1,xdots(:),xdots1(:)*.1);
+        ydots=cat(1,ydots(:),ydots1(:)*.1);
+        zdots=cat(1,zdots(:),zdots1(:)*.1);
+        nDots = length(xdots);
+    end
+  
     % Reshape the dot center arrays into vectors
     xc = xdots(:);
     yc = ydots(:);
     zc = zdots(:);
+    
     
     % Allocate array to hold all the [x,y,z] points
     x = zeros(particles_per_dot, nDots);
@@ -66,7 +81,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     z = zeros(particles_per_dot, nDots);
     
     % Make all the dots
-    for n = 1 : nDots
+    for n = 1 : nDots;
         
         % Random angle from dot center
         th = 2 * pi * rand(particles_per_dot, 1);
