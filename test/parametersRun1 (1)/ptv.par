@@ -1,14 +1,14 @@
 4
-img2/Cam1/frame_10001
+img/Cam1/frame_10001
 cal/cam1.tif
-img2/Cam2/frame_10001
+img/Cam2/frame_10001
 cal/cam2.tif
-img2/Cam3/frame_10001
+img/Cam3/frame_10001
 cal/cam3.tif
-img2/Cam4/frame_10001
+img/Cam4/frame_10001
 cal/cam4.tif
 1
-1
+0
 1
 1024
 1024
@@ -17,5 +17,5 @@ cal/cam4.tif
 0
 1
 1
-1.46
-5
+1
+1
