@@ -1,5 +1,5 @@
-function makeImages2(varargin)
-
+function [Image] = makeImages2(varargin)
+%[Image] = makeImages2(varargin)
 % Seed the number generator
 rng(1);
 
@@ -23,13 +23,14 @@ addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
-addParameter(p, 'save', true, @islogical);
+addParameter(p, 'save', false, @islogical);
 addParameter(p, 'plot', true, @islogical);
 addParameter(p, 'write_to_work', true, @islogical);
-
+addParameter(p, 'save_positions', false, @islogical);
 % Parse the arguments
 parse(p, varargin{:});
 
+Save_particle_trajctories = p.Results.save_positions;
 Cameras = p.Results.cameras;
 out_root = p.Results.outdir;
 out_base = p.Results.outbase;
@@ -66,7 +67,7 @@ xo = xrange(1) + (xrange(2) - xrange(1)) * rand(n_particles, 1);
 yo = yrange(1) + (yrange(2) - yrange(1)) * rand(n_particles, 1);
 zo = zrange(1) + (zrange(2) - zrange(1)) * rand(n_particles, 1);
 
-%need to scale down the positons
+%need to scale down the positons. Reducing it in params causes error
 xo=xo./4;
 yo=yo./4;
 zo=zo./4;
@@ -74,8 +75,19 @@ zo=zo./4;
 % xo=cat(1,xo(:),xo1(:)*.08);
 % yo=cat(1,yo(:),yo1(:)*.08);
 % zo=cat(1,zo(:),zo1(:)*.1);
+
+
 % Calculate the particle trajectories
 [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
+
+if Save_particle_trajctories
+    Trajects.x=X;
+    Trajects.y=Y;
+    Trajects.z=Z;
+    save('Trajects.mat')
+end
+
+
 
 % Count the number of cameras
 num_cameras = length(Cameras);
@@ -153,32 +165,21 @@ for t = 1 : length(tSpan)
             % Where to save the image
             out_path = fullfile(out_dir, sprintf(outNameFmt, t));
             Eight_BIT = im2uint8(particle_image_uint16);%uint8(particle_image_uint16/256);
-            flip_image = flipud(Eight_BIT);
+%             flip_image = flipud(Eight_BIT);
+            flip_image = fliplr(Eight_BIT);
             imwrite(flip_image, out_path);
 %             imwrite(uint8(particle_image_uint16/256), out_path);
         end
+        % uncomment to output image to workspace 
+        % playback using implay
+        %Image(:,:,:,t,k) = fliplr(particle_image_uint16);
        
             
-%         if write_to_work
-%             if k ==1
-%                 if t ==1
-%                     g.seq=uint8(particle_image_uint16/256);
-%                     %disp('starting')
-%                 else
-%                     %disp('Appending')
-%                     seq2=uint8(particle_image_uint16/256);
-%                     g.seq = [g.seq ; seq2];
-%                 end
-%             else
-%             end
-%         end
-%         
-%     end
+
 %     
     %Draw the frame
     drawnow();
-%     ff=getframe;
-%     g(t).seq=ff;
+
     end
 
 % implay(g.seq)
