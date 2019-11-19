@@ -1,4 +1,4 @@
-function [Image] = makeImages2(varargin)
+function makeImages2(varargin)
 %[Image] = makeImages2(varargin)
 % Seed the number generator
 rng(1);
@@ -17,7 +17,7 @@ addParameter(p, 'xrange', [-.25, .25]);
 addParameter(p, 'yrange', [-.25, .25]);
 addParameter(p, 'zrange', [0, 0.1]);
 addParameter(p, 'particleConcentration', 2e4, @isnumeric);
-addParameter(p, 'tspan', linspace(0,0.05, 40), @isnumeric);
+addParameter(p, 'tspan', linspace(0,0.05, 10), @isnumeric);
 addParameter(p, 'particleDiameterMean', 1.5*sqrt(8), @isnumeric); % 1.5
 addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
@@ -25,8 +25,8 @@ addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
 addParameter(p, 'save', false, @islogical);
 addParameter(p, 'plot', true, @islogical);
-addParameter(p, 'write_to_work', true, @islogical);
-addParameter(p, 'save_positions', false, @islogical);
+addParameter(p, 'write_to_work', false, @islogical);
+addParameter(p, 'save_positions', true, @islogical);
 % Parse the arguments
 parse(p, varargin{:});
 
@@ -81,10 +81,10 @@ zo=zo./4;
 [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
 
 if Save_particle_trajctories
-    Trajects.x=X;
-    Trajects.y=Y;
-    Trajects.z=Z;
-    save('Trajects.mat')
+    Pos.x=X;
+    Pos.y=Y;
+    Pos.z=Z;
+    save('Pos.mat','Pos')
 end
 
 
@@ -143,7 +143,8 @@ for t = 1 : length(tSpan)
             set(gcf, 'color', 'white');
             % this was missing , you can either flip image of set ydir
             % reverse
-            set(gca, 'ydir', 'normal');
+            set(gca, 'xdir', 'Reverse');
+%             set(gca, 'ydir', 'normal');
         end
         
 %         % Output path
