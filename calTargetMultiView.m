@@ -86,6 +86,7 @@ function calImages = calTargetMultiView(varargin)
 
         % Save results to the output structure
         % calImages{k} = flipud(imgArr);
+        % RAW OUT PUT NO FLIP FLIP
         calImages{k} = imgArr;
 
         % Plot the images
@@ -130,7 +131,8 @@ function calImages = calTargetMultiView(varargin)
     end
     
     if MakeTargetFile
-        [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
+        [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D,'make_axis',MakeAxis);
+        %[x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
         count = 1:length(xc);
         M = [count',xc*1000,yc*1000,zc*1000];
         dlmwrite('test/cal/target_file.txt',M,'delimiter','\t');
