@@ -10,7 +10,7 @@ p = inputParser;
 addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
 addParameter(p, 'outdir', '.', @isstr);
 addParameter(p, 'outbase', 'frame_1', @isstr);
-addParameter(p, 'extension', 'tiff', @isstr);
+addParameter(p, 'extension', '.tiff', @isstr);
 addParameter(p, 'zeros', 4, @isnumeric);
 addParameter(p, 'velocityFunction', @burgersVortex, @isFunctionHandle);
 addParameter(p, 'xrange', [-.25, .25]);
@@ -23,9 +23,9 @@ addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
-addParameter(p, 'save', false, @islogical);
+addParameter(p, 'save', true, @islogical);
 addParameter(p, 'plot', true, @islogical);
-addParameter(p, 'write_to_work', false, @islogical);
+addParameter(p, 'write_to_work', false, @islogical); % does nothing RN
 addParameter(p, 'save_positions', true, @islogical);
 % Parse the arguments
 parse(p, varargin{:});
@@ -80,6 +80,7 @@ zo=zo./4;
 % Calculate the particle trajectories
 [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
 
+% Save Particle Positions
 if Save_particle_trajctories
     Pos.x=X;
     Pos.y=Y;
@@ -176,14 +177,11 @@ for t = 1 : length(tSpan)
         %Image(:,:,:,t,k) = fliplr(particle_image_uint16);
        
             
-
-%     
     %Draw the frame
     drawnow();
 
     end
 
-% implay(g.seq)
 
 
 end
