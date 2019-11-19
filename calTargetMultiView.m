@@ -4,16 +4,19 @@ function calImages = calTargetMultiView(varargin)
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'plot', false, @islogical);
+    addParameter(p, 'plot', true, @islogical);
     addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
     addParameter(p, 'targetOrigin', [0,0,0], @isnumeric);
     addParameter(p, 'cal_dir', 'test/cal', @isstr);
-    addParameter(p, 'save', true, @islogical);
+    addParameter(p, 'save', false, @islogical);
     addParameter(p, 'outbase', 'cam', @isstr);
     addParameter(p, 'zeros', 1, @isnumeric);
     addParameter(p, 'extension', 'tif', @isstr);
-    addParameter(p, 'TargetFile', true, @islogical);
+    addParameter(p, 'TargetFile', false, @islogical);
     addParameter(p, 'target_3D', false, @islogical);
+    addParameter(p, 'plot_camera', true, @islogical);
+    addParameter(p, 'make_axis', false, @islogical);
+    
     % Parse the arguments
     parse(p, varargin{:});
     % cal image save
@@ -25,7 +28,9 @@ function calImages = calTargetMultiView(varargin)
     % target file 
     MakeTargetFile = p.Results.TargetFile;
     target3D = p.Results.target_3D;
-
+    Plot_camera = p.Results.plot_camera;
+    % Make axis for debug 
+    MakeAxis = p.Results.make_axis;
     % Results structure
     makePlots = p.Results.plot;
 
@@ -54,7 +59,7 @@ function calImages = calTargetMultiView(varargin)
         for n = 1 : nTargs
 
             % Get particle coordinates to render a calibration target
-            [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D);
+            [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D,'make_axis',MakeAxis);
 
             % Create a normal distribution of particle diameters
             particleDiameters = sqrt(8) * ones(numel(x), 1);
@@ -92,7 +97,8 @@ function calImages = calTargetMultiView(varargin)
             title(sprintf('Camera %d', k), 'interpreter', 'latex', 'fontsize', 20);
             colormap gray;
             caxis([0, intmax('uint16')]);
-            set(gca, 'ydir', 'normal');
+%             set(gca, 'ydir', 'normal');
+            set(gca, 'xdir', 'Reverse');
             set(gcf, 'color', 'white');
         end
         
@@ -110,14 +116,15 @@ function calImages = calTargetMultiView(varargin)
         % Save the image
         if saveImages
             Eight_BIT = im2uint8(particle_image_uint16);%uint8(particle_image_uint16/256);
-            flip_image = flipud(Eight_BIT);
+%             flip_image = flipud(Eight_BIT);
+            flip_image = fliplr(Eight_BIT);
             imwrite(flip_image, out_path);
           
         end
         
     end
 
-    if makePlots
+    if Plot_camera
         figure;
         plotCameraArrangement('Cameras', Cameras, 'points', [xc(:), yc(:), zc(:)]);
     end
