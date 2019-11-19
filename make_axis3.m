@@ -46,7 +46,7 @@ z_max = max(z_dir);
 x_max = max(x_dir);
 f=polyfit([0,z_max],[x_max,0],2);
 xxx=linspace(0,x_max,40);
-pp = polyval(f,xxx)
+pp = polyval(f,xxx);
 y = zeros(size(pp));
 
 
