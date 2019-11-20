@@ -4,18 +4,18 @@ function calImages = calTargetMultiView(varargin)
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'plot', true, @islogical);
-    addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
+    addParameter(p, 'plot', true, @islogical); % Plot?
+    addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct); % Load the cameras in 
     addParameter(p, 'targetOrigin', [0,0,0], @isnumeric);
-    addParameter(p, 'cal_dir', 'test/cal', @isstr);
-    addParameter(p, 'save', false, @islogical);
-    addParameter(p, 'outbase', 'cam', @isstr);
+    addParameter(p, 'cal_dir', 'test/cal', @isstr); % Directory to Save files
+    addParameter(p, 'save', false, @islogical); % Save files 
+    addParameter(p, 'outbase', 'cam', @isstr); % File name 'Cam1.tif'
     addParameter(p, 'zeros', 1, @isnumeric);
-    addParameter(p, 'extension', 'tif', @isstr);
-    addParameter(p, 'TargetFile', false, @islogical);
-    addParameter(p, 'target_3D', false, @islogical);
-    addParameter(p, 'plot_camera', true, @islogical);
-    addParameter(p, 'make_axis', false, @islogical);
+    addParameter(p, 'extension', 'tif', @isstr); % File extension
+    addParameter(p, 'TargetFile', false, @islogical); % Save Target file?
+    addParameter(p, 'target_3D', false, @islogical); % WANT A 3D Target?
+    addParameter(p, 'plot_camera', true, @islogical); %SHOW CAMERA CONFIG
+    addParameter(p, 'make_axis', false, @islogical); % DEBUG DIRECTION
     
     % Parse the arguments
     parse(p, varargin{:});
