@@ -12,7 +12,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     addParameter(p, 'columns', 5, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
     addParameter(p, 'particlesPerDot', 1e3, @isnumeric);
-    addParameter(p, 'target_3D', false, @islogical);
+    addParameter(p, 'target_3D', true, @islogical);
     addParameter(p, 'make_axis', false, @islogical);
     
     % Parse the arguments
@@ -74,6 +74,9 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     yc = ydots(:);
     zc = zdots(:);
     
+    % DISP min and max of target file 
+    text_2_disp = ['X-Range:',num2str([min(xc),max(xc)]),'; Y-Range:',num2str([min(yc),max(yc)]),'; Z-Range:',num2str([min(zc),max(zc)])];
+    disp(text_2_disp)
     
     % Allocate array to hold all the [x,y,z] points
     x = zeros(particles_per_dot, nDots);
