@@ -8,16 +8,16 @@ p = inputParser;
 
 % Add optional inputs
 addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
-addParameter(p, 'outdir', '.', @isstr);
-addParameter(p, 'outbase', 'frame_1', @isstr);
+addParameter(p, 'outdir', '.', @isstr); % Where to Save 
+addParameter(p, 'outbase', 'frame_1', @isstr); % Base Name 
 addParameter(p, 'extension', '.tiff', @isstr);
 addParameter(p, 'zeros', 4, @isnumeric);
-addParameter(p, 'velocityFunction', @burgersVortex, @isFunctionHandle);
-addParameter(p, 'xrange', [-.25, .25]);
+addParameter(p, 'velocityFunction', @burgersVortex, @isFunctionHandle); % Our Velocity function 
+addParameter(p, 'xrange', [-.25, .25]); % 
 addParameter(p, 'yrange', [-.25, .25]);
-addParameter(p, 'zrange', [0, 0.1]);
-addParameter(p, 'particleConcentration', 2e4, @isnumeric);
-addParameter(p, 'tspan', linspace(0,0.05, 10), @isnumeric);
+addParameter(p, 'zrange', [-.2, 0.2]);
+addParameter(p, 'particleConcentration', 1.5e4, @isnumeric);
+addParameter(p, 'tspan', linspace(0,0.01, 20), @isnumeric);
 addParameter(p, 'particleDiameterMean', 1.5*sqrt(8), @isnumeric); % 1.5
 addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
@@ -174,7 +174,7 @@ for t = 1 : length(tSpan)
         end
         % uncomment to output image to workspace 
         % playback using implay
-        %Image(:,:,:,t,k) = fliplr(particle_image_uint16);
+      %  Image(:,:,:,t,k) = fliplr(particle_image_uint16);
        
             
     %Draw the frame
