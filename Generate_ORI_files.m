@@ -1,6 +1,5 @@
 function Generate_ORI_files(varargin)
-% % AR % I modified this code to output the ORI files but it doesnt work yet
-% Reference Plot Camera
+% Generate the ori FILES 
 
 % Input parser
 p = inputParser;
@@ -8,14 +7,23 @@ p = inputParser;
 % Add optional inputs
 addParameter(p, 'cameras', defaultCameraArrangement(), @isstruct);
 addParameter(p, 'points', [], @isnumeric);
-% addParameter(p, 'Back_focal', [], @isnumeric);
+addParameter(p, 'xp_offset', 0, @isnumeric);
+addParameter(p, 'yp_offset', 0, @isnumeric);
+addParameter(p, 'focal', 40, @isnumeric);
+addParameter(p, 'interface', [0.0001 0.0001 190.00000], @isnumeric);
+addParameter(p, 'ori_dir', 'test2/cal', @isstr); % Directory to Save files
 % Parse the arguments
 parse(p, varargin{:});
 
 % Results structure
 Cameras = p.Results.cameras;
 calPoints = p.Results.points;
-% Back_focal = p.Results.Back_focal;
+Focal_dist = p.Results.focal;
+Xp_offset = p.Results.xp_offset;
+Yp_offset = p.Results.yp_offset;
+Interface_pos = p.Results.interface;
+Ori_dir = p.Results.ori_dir;
+
 
 for n = 1 : length(Cameras)
    
@@ -26,21 +34,31 @@ for n = 1 : length(Cameras)
    % Convert from camera matrix to orentation matrix
    C = -1 * R\t;
    Rc = inv(R)';
+
+   euler_angle = rotm2eul(R','XYZ');
+   file_name = [Ori_dir,'/cam',num2str(n),'.tif.ori']; % FileName 
+   dlmwrite(file_name,1000.*C','delimiter','\t','precision','%.5f') % X Y Z of cameras % first line of ORI
+   dlmwrite(file_name,euler_angle,'delimiter','\t','-append','precision','%.5f') % ANGLES Second Line
+   dlmwrite(file_name,' ','delimiter','\t','-append') % Add a space
+   dlmwrite(file_name,R','delimiter','\t','-append','precision','%.5f') % Write the matrix
+   dlmwrite(file_name,' ','delimiter','\t','-append') % Add a space 
+   dlmwrite(file_name,[Xp_offset Yp_offset],'-append','delimiter','\t','precision','%.5f') % Xp Yp
+   dlmwrite(file_name,Focal_dist,'-append','precision','%.5f') % BACK Focal distance should be in
+   dlmwrite(file_name,Interface_pos,'-append','delimiter','\t','precision','%.5f') % Last line
+   
+ 
+    
+end
+
+end
+
+
    % AR % This is where I made Chanages 
 %    euler_angle = rotm2eul(R');  % calculates the angles 
 %    euler_angle = RotationAngles(Rc)';euler_angle = rotm2eul(Rc,'XYZ');
-   euler_angle = rotm2eul(R','XYZ');
-   file_name = ['test\cal\cam',num2str(n),'.tif.ori']; % FileName 
-   dlmwrite(file_name,1000.*C','delimiter','\t','precision','%.3f') % X Y Z of cameras % first line of ORI
-   dlmwrite(file_name,euler_angle,'delimiter','\t','-append','precision','%.4f') % ANGLES Second Line
-   dlmwrite(file_name,' ','delimiter','\t','-append') % Add a space
-   dlmwrite(file_name,R','delimiter','\t','-append','precision','%.4f') % Write the matrix
-   dlmwrite(file_name,' ','delimiter','\t','-append') % Add a space 
-   dlmwrite(file_name,[0.0000 0.0000],'-append','delimiter','\t','precision','%.3f') % Xp Yp
-   dlmwrite(file_name,40,'-append','precision','%.3f') % BACK Focal distance should be in
-   dlmwrite(file_name,[0.001 0.001 190],'-append','delimiter','\t','precision','%.3f') % Last line
-   
-   
+
+
+  
 %    ori_matrix{n} = Rc
 %    location{n} = C
 %    trans{n} = t
@@ -64,8 +82,3 @@ for n = 1 : length(Cameras)
 %    plotCamera('location', C, 'orientation', ...
 %        Rc, 'label', sprintf('%d', n), 'color', 'w', 'size', 0.05, 'axesvisible', false);
 %    hold on;
-    
-end
-
-end
-
