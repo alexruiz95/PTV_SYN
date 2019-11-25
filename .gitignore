@@ -1,8 +1,12 @@
-**/test/
+**/test/img
 **/Copy_of_test/
 **/Copy_2_of_test/
 **/dep/
-/test/
+**/test2
+**/test
+/test/img/
 /Copy_of_test/
 /Copy_2_of_test/
 /dep/
+/test2
+/test/
