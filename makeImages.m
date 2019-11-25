@@ -145,7 +145,7 @@ for t = 1 : length(tSpan)
             % Where to save the image
             out_path = fullfile(out_dir, sprintf(outNameFmt, t));
             Eight_BIT = uint8(particle_image_uint16/256);
-            flip_image = flipud(Eight_BIT);
+            flip_image = fliplr(Eight_BIT);
             imwrite(flip_image, out_path);
 %             imwrite(uint8(particle_image_uint16/256), out_path);
         end
