@@ -1,7 +1,7 @@
 
 test='C:\Users\alex\Desktop\og\PTV_SYN\test2\res';
 start = 10001;
-last = 10010;
+last = 10020;
 dt=1/100;
 min_len = 4;
 %------
@@ -14,7 +14,8 @@ plot_long_trajectories(traj,min_len);
 
 
 
-
+% plot ground truth 
+%traject = pos_to_traj_2(Pos,dt)
 
 
 
