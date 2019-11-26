@@ -15,11 +15,13 @@ calTargetMultiView('save',true,'cal_dir','test2/cal','TargetFile', true,'target_
 makeImages2('outdir','test2/img','save',true,'plot',true);
 
 
-% Remove the tiff heading 
+% Remove the tiff heading using python
 system('py remove_tif.py test2/img/Cam1');
 system('py remove_tif.py test2/img/Cam2');
 system('py remove_tif.py test2/img/Cam3');
 system('py remove_tif.py test2/img/Cam4');
+% or matlab
+%remove_tif_M.m
 
 % RUN PTV
 % Perform Calibration 
