@@ -34,8 +34,18 @@ for n = 1 : length(Cameras)
    % Convert from camera matrix to orentation matrix
    C = -1 * R\t;
    Rc = inv(R)';
-
-   euler_angle = rotm2eul(R','XYZ');
+   
+   
+   % using matlab tool boxes (not free)
+   % Check to see if user has package
+   if exist('rotm2eul')
+       euler_angle = rotm2eul(R','XYZ');
+   else 
+   % If not use free code
+   % Added a free RotationAngles code 
+        euler_angle = -RotationAngles(R)';
+   end
+   
    file_name = [Ori_dir,'/cam',num2str(n),'.tif.ori']; % FileName 
    dlmwrite(file_name,1000.*C','delimiter','\t','precision','%.5f') % X Y Z of cameras % first line of ORI
    dlmwrite(file_name,euler_angle,'delimiter','\t','-append','precision','%.5f') % ANGLES Second Line
@@ -45,7 +55,7 @@ for n = 1 : length(Cameras)
    dlmwrite(file_name,[Xp_offset Yp_offset],'-append','delimiter','\t','precision','%.5f') % Xp Yp
    dlmwrite(file_name,Focal_dist,'-append','precision','%.5f') % BACK Focal distance should be in
    dlmwrite(file_name,Interface_pos,'-append','delimiter','\t','precision','%.5f') % Last line
-   
+%    
  
     
 end
