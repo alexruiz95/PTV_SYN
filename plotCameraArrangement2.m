@@ -5,6 +5,10 @@ function plotCameraArrangement2(varargin)
 
 % JUST FOR visualization
 
+% THIS IS VERY UGLY 
+
+addpath('plotting_camera');
+
 % Input parser
 p = inputParser;
 
