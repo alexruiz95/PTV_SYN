@@ -71,6 +71,8 @@ else
 end
 
 plot3(x(:),y(:),z(:), '.w', 'markersize', 15, 'markerfacecolor', 'w');
+% Title
+title('ESTIMATE, NOT ACCURATE, JUST AN IDEA, ROTATIONS ARE slightly off',"Color",'white')
 hold off;
 axis image;
 axis vis3d;
@@ -91,6 +93,7 @@ set(gca, 'color', 'black');
 set(gca, 'xcolor', 'white');
 set(gca, 'ycolor', 'white');
 set(gca, 'zcolor', 'white');
+
 
 
 end
