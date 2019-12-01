@@ -42,8 +42,14 @@ for n = 1 : length(Cameras)
 %    Rcc = roty(180)*Rc*rotx(-90);
 %    Rcc2 = roty(180)*Rc*rotx(-90)*roty(180);
 %     Rc=R;
-   Rcc = roty(180)*Rc*rotx(-90)*rotz(1);
-   Rcc2 = roty(180)*Rc*rotx(-90)*roty(180);
+%    Rcc = roty(180)*Rc*rotx(-90)*rotz(1);
+%    Rcc2 = roty(180)*Rc*rotx(-90)*roty(180);
+   
+   % REWRITE USING FREE 
+   Rcc = rotoy(deg2rad(180))*Rc*rotox(deg2rad(-90))*rotoz(deg2rad(1));
+   Rcc2 = rotoy(deg2rad(180))*Rc*rotox(deg2rad(-90))*rotoy(deg2rad(180));
+   
+   
    Hd=f_Rt2H(Rcc,C);
    Hd1=f_Rt2H(Rcc2,C);
 %    Hd=f_Rt2H(R,-t);
