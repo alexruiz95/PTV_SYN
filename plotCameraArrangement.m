@@ -25,7 +25,8 @@ for n = 1 : length(Cameras)
    C = -1 * R\t;
    Rc = inv(R)';
    % for visual direction
-   Rc = roty(180)*Rc;
+  % Rc = roty(180)*Rc;
+   Rc = [-1 0 0;0 1 0;0,0,-1]*Rc;
    
    % Plot the camera
    plotCamera('location', C, 'orientation', ...
