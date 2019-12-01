@@ -1,7 +1,13 @@
 % UGLY BUT WORKS 
-path = 'test2/img/';
+% Just run this it should work.
+
+% Where are the Cam1, Cam2 .. etc folder 
+path = 'test/img/';
+
+% What is the file extension
 exten = '.tiff' ; 
 
+% for each folder 
 for i = 1:4
     full_ext = [path,'Cam',num2str(i),'/','*',exten];
     files = dir(full_ext);
