@@ -14,7 +14,7 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'extension', 'tif', @isstr); % File extension
     addParameter(p, 'TargetFile', false, @islogical); % Save Target file?
     addParameter(p, 'target_3D', false, @islogical); % WANT A 3D Target? %BETA 
-    addParameter(p, 'plot_camera', true, @islogical); %SHOW CAMERA PLACMENT
+    addParameter(p, 'plot_camera', false, @islogical); %SHOW CAMERA PLACMENT
     addParameter(p, 'make_axis', false ,@islogical); % DEBUG DIRECTION %DEV 
     addParameter(p, 'generate_ori', false, @islogical); % Generate ORI FILES FOR PTV
     % DONT TOUCH BELOW ----------------------------------------------%%%%
@@ -132,10 +132,10 @@ function calImages = calTargetMultiView(varargin)
         end
         
     end
-
+    % IF YOU DONT HAVE THE PACKAGES SET THESE TO FALSE
     if Plot_camera
         % adding if statment to check for package
-        if exist('plotCamera3')
+        if exist('plotCamera')
             figure;
             plotCameraArrangement('Cameras', Cameras, 'points', [xc(:), yc(:), zc(:)]);
         else 
