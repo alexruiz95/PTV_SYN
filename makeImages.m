@@ -24,8 +24,8 @@ addParameter(p, 'beamStdDev', 0.05, @isnumeric);
 addParameter(p, 'BeamPlaneZ', 0, @isnumeric);
 addParameter(p, 'velocityFunctionParams', [], @isstruct);
 addParameter(p, 'save', false, @islogical);
-addParameter(p, 'plot', true, @islogical);
-addParameter(p, 'write_to_work', true, @islogical);
+addParameter(p, 'plot', false, @islogical);
+addParameter(p, 'write_to_work', false, @islogical);
 
 % Parse the arguments
 parse(p, varargin{:});
