@@ -11,7 +11,7 @@ addParameter(p, 'xp_offset', 0, @isnumeric);
 addParameter(p, 'yp_offset', 0, @isnumeric);
 addParameter(p, 'focal', 40, @isnumeric);
 addParameter(p, 'interface', [0.0001 0.0001 0.0001], @isnumeric);
-addParameter(p, 'ori_dir', 'test2/cal', @isstr); % Directory to Save files
+addParameter(p, 'ori_dir', 'test/cal', @isstr); % Directory to Save files
 % Parse the arguments
 parse(p, varargin{:});
 
