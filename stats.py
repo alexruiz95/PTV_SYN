@@ -18,7 +18,11 @@ for j in range(0,4):
 	for i in range(start,end):
 		m=m+1
 		# data = np.loadtxt("img"+str(j)+"/cam"+str(j+1)+".0"+str(i)+"_targets",skiprows=1)
-		f = open(case+"/img/Cam"+str(j+1)+"/frame_100"+str(i)+"_targets")
+		namename = case+"/img/Cam"+str(j+1)+"/frame_"+str(i)+"_targets" 
+		f = open(case+"/img/Cam"+str(j+1)+"/frame_"+str(i)+"_targets")
+		print(namename)
+		print(i)
+		print(j)
 		lines = f.readlines()
 		data = lines[0]
 		k[j,m]=data
