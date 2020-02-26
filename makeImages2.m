@@ -26,7 +26,7 @@ addParameter(p, 'velocityFunctionParams', [], @isstruct);
 addParameter(p, 'save', true, @islogical);
 addParameter(p, 'plot', true, @islogical);
 addParameter(p, 'write_to_work', false, @islogical); % does nothing RN
-addParameter(p, 'save_positions', true, @islogical);
+addParameter(p, 'save_positions', false, @islogical);
 % Parse the arguments
 parse(p, varargin{:});
 
@@ -75,10 +75,20 @@ zo=zo./4;
 % xo=cat(1,xo(:),xo1(:)*.08);
 % yo=cat(1,yo(:),yo1(:)*.08);
 % zo=cat(1,zo(:),zo1(:)*.1);
+use_existing_pos = true ;
 
+if use_existing_pos
+    load('Pos.mat')
+    X = Pos.x ;
+    Y = Pos.y ;
+    Z = Pos.z ;
+    disp('USEING EXISTING')
+else 
+    % Calculate the particle trajectories
+    [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
+    disp('GEN NEW POS')
+end
 
-% Calculate the particle trajectories
-[X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
 
 % Save Particle Positions
 if Save_particle_trajctories
@@ -86,7 +96,9 @@ if Save_particle_trajctories
     Pos.y=Y;
     Pos.z=Z;
     save('Pos.mat','Pos')
+    disp('SAVED')
 end
+
 
 
 
