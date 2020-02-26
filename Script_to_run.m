@@ -32,7 +32,7 @@ system('py remove_tif.py test/img/Cam2');
 system('py remove_tif.py test/img/Cam3');
 system('py remove_tif.py test/img/Cam4');
 % or matlab
-%remove_tif_M.m
+remove_tif_M
 
 % RUN PTV
 % Perform Calibration 
