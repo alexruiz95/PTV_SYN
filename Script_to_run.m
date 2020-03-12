@@ -23,7 +23,8 @@ calTargetMultiView('save',true,'cal_dir','test/cal','TargetFile', true,'target_3
 % Generate_ORI_files()
 
 % Make the images
-makeImages2('outdir','test/img','save',true,'plot',true);
+% makeImages2('outdir','test/img','save',true,'plot',true);
+makeImages3('outdir','test/img','save',true,'plot',true);
 
 
 % Remove the tiff heading using python
