@@ -27,7 +27,7 @@ end
 
 % Convert to traj for plotting
 dt = 1/100;
-traject = pos_to_traj(X,Y,Z,dt)
+traj_GT = pos_to_traj(X,Y,Z,dt)
 
-plot_long_trajectories(traject(1:100),2)
+plot_long_trajectories(traj_GT(1:100),2)
  
