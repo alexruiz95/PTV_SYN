@@ -29,24 +29,24 @@ x_cam = camera_coordinates(:, 1) ./ camera_coordinates(:, 3);
 y_cam = camera_coordinates(:, 2) ./ camera_coordinates(:, 3);
 
 
-% ADD SIMPLE DISTORT NOW THAT IM SMARTER 
-off_set = 512;
-x = x_cam-off_set;
-y = y_cam-off_set;
-rold = sqrt(x.*x + y.*y);
-distort =  true ;
-if distort 
-    distortion_coeff = 10e-7;
-    disp('YES DISTORT')
-else 
-    distortion_coeff = 0 ;
-end
-
-x_new = x.*(1+distortion_coeff.*rold.^2) ; 
-y_new = y.*(1+distortion_coeff.*rold.^2) ; 
-% z_new = zc.*(1+distortion_coeff.*rold.^2) ; 
-x_cam = x_new + off_set ;
-y_cam = y_new + off_set;
+% ADD SIMPLE DISTORT
+% off_set = 512;
+% x = x_cam-off_set;
+% y = y_cam-off_set;
+% rold = sqrt(x.*x + y.*y);
+% distort =  true ;
+% if distort 
+%     distortion_coeff = 10e-7;
+%     disp('YES DISTORT')
+% else 
+%     distortion_coeff = 0 ;
+% end
+% 
+% x_new = x.*(1+distortion_coeff.*rold.^2) ; 
+% y_new = y.*(1+distortion_coeff.*rold.^2) ; 
+% % z_new = zc.*(1+distortion_coeff.*rold.^2) ; 
+% x_cam = x_new + off_set ;
+% y_cam = y_new + off_set;
 
 %
 
