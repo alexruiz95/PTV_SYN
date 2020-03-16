@@ -84,6 +84,7 @@ min_len = 4;
 traj=ptv_is_to_traj(test,start,last,min_len,dt);
 plot_long_trajectories(traj,min_len);
 title('Turbulent Flow- Reconstruction')
+saveas(gcf,'turb_flow_reconstruct.png')
 
 % Ground TRUTH DATA
 % Load the data 
@@ -97,7 +98,7 @@ end
 traj_GT = pos_to_traj(X,Y,Z,dt)
 plot_long_trajectories(traj_GT,min_len)
 title('Turbulent Flow-Ground Truth')
-
+saveas(gcf,'turb_flow_GT.png')
 %-dep-%
 % -------------- % 
 % PARAMS.g = 5;
