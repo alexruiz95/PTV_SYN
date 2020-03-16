@@ -23,7 +23,6 @@ calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',
 % This code will save the images to the specified directory, create a
 % target file, generate the ori files for a 3D calibration plate
 
-
 % Generate the ORI Files for initial guess (exact) Manually with 
 % Generate_ORI_files()
 % NOTE: CalTartMultiView Takes care of this
@@ -44,10 +43,11 @@ makeImages2('outdir',img_dir,'save',true,'plot',true);
 
 % makeImages3('outdir',img_dir,'save',true,'plot',true);
 
-% REMOVE TIFF HEADER WITHT HIS FUNCTION
+%---------------% REMOVE TIFF HEADER WITHT HIS FUNCTION %-----------------%
 remove_tif_M(img_dir)
 
-% RUN PTV
+
+%---------------------------% RUN PTV %-----------------------------------%
 % Perform Calibration 
 % Note: In the calibration process you will notice that you will not be able to click “Fine tuning” after selecting “Raw orientation”. 
 % In order to overcome this bug you will need to perform these steps after selecting “ Raw Orientation” :
@@ -59,11 +59,29 @@ remove_tif_M(img_dir)
 % It should work after this.
 
 
-% Perform Tracking 
+%----------------------% Perform Tracking %-------------------------------%
 
-% Post Processsing 
+%----------------------% Post Processsing %-------------------------------%
 % In the PTVCODES run the code run_this.m to inspect the tracks
 
+test=['C:\Users\alex\Desktop\og\PTV_SYN\',work_dir,'\res'];
+% test='C:\Users\alex\Desktop\og\PTV_SYN\test\Copy_of_res';
+start = 10002;
+last = 10020;
+dt=1/100;
+min_len = 4;
+%------
+
+% main = 'C:\Users\alex\OneDrive - Knights - University of Central Florida\Documents\research_xray\CODE_MAIN\TEST DATA FOR PTV\';
+% folder = fullfile(main,test,'res0');
+
+traj=ptv_is_to_traj(test,start,last,min_len,dt);
+plot_long_trajectories(traj,min_len);
+title('Burgers Vortex')
+
+
+
+%-dep-%
 % -------------- % 
 % PARAMS.g = 5;
 % PARAMS.a = 1;
