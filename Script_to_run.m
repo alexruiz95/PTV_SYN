@@ -12,8 +12,8 @@ addpath('ptvcodes');
 addpath('test');
 
 
-% Generate the calibration Images     
-% 
+% Generate the calibration Images  
+% Same for all data 
 calTargetMultiView('save',true,'cal_dir','test/cal','TargetFile', true,'target_3D',true,'generate_ori', true)
 % This code will save the images to the specified directory, create a
 % target file, generate the ori files for a 3D calibration plate
@@ -21,9 +21,12 @@ calTargetMultiView('save',true,'cal_dir','test/cal','TargetFile', true,'target_3
 
 % Generate the ORI Files for initial guess (exact) Manually with 
 % Generate_ORI_files()
+% NOTE: CalTartMultiView Takes care of this
 
 % Make the images
+% For analytical case Burgers vortex use:
 % makeImages2('outdir','test/img','save',true,'plot',true);
+% For turbulent data USE:
 makeImages3('outdir','test/img','save',true,'plot',true);
 
 
