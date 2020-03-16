@@ -17,11 +17,9 @@ load('test.mat')
 %         Y(time,:) = x(time,j,2);
 %         Z(time,:) = x(time,j,3);
 for time = 1:length(t)
-%     for j = 1:length(x)
         X(time,:) = x(time,1:100,1);
         Y(time,:) = x(time,1:100,2);
         Z(time,:) = x(time,1:100,3);
-%     end
 end
 
 
