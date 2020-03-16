@@ -51,10 +51,10 @@ end
 
 makeImages3('outdir',img_dir,'save',true,'plot',true);
 
-% REMOVE TIFF HEADER WITHT HIS FUNCTION
+%---------------% REMOVE TIFF HEADER WITHT HIS FUNCTION %---------------%
 remove_tif_M(img_dir)
 
-% RUN PTV
+%---------------------------% RUN PTV %-----------------------------------%
 % Perform Calibration 
 % Note: In the calibration process you will notice that you will not be able to click “Fine tuning” after selecting “Raw orientation”. 
 % In order to overcome this bug you will need to perform these steps after selecting “ Raw Orientation” :
@@ -66,11 +66,39 @@ remove_tif_M(img_dir)
 % It should work after this.
 
 
-% Perform Tracking 
+%----------------------% Perform Tracking %-------------------------------%
 
-% Post Processsing 
+%----------------------% Post Processsing %-------------------------------%
 % In the PTVCODES run the code run_this.m to inspect the tracks
+test=['C:\Users\alex\Desktop\og\PTV_SYN\',work_dir,'\res'];
+% test='C:\Users\alex\Desktop\og\PTV_SYN\test\Copy_of_res';
+start = 10002;
+last = 10099;
+dt=1/100;
+min_len = 4;
+%------
 
+% main = 'C:\Users\alex\OneDrive - Knights - University of Central Florida\Documents\research_xray\CODE_MAIN\TEST DATA FOR PTV\';
+% folder = fullfile(main,test,'res0');
+
+traj=ptv_is_to_traj(test,start,last,min_len,dt);
+plot_long_trajectories(traj,min_len);
+title('Turbulent Flow- Reconstruction')
+
+% Ground TRUTH DATA
+% Load the data 
+load('test.mat')
+N_TRAJ = 100 ;
+for time = 1:length(t)
+        X(time,:) = x(time,1:N_TRAJ,1);
+        Y(time,:) = x(time,1:N_TRAJ,2);
+        Z(time,:) = x(time,1:N_TRAJ,3);
+end
+traj_GT = pos_to_traj(X,Y,Z,dt)
+plot_long_trajectories(traj_GT,min_len)
+title('Turbulent Flow-Ground Truth')
+
+%-dep-%
 % -------------- % 
 % PARAMS.g = 5;
 % PARAMS.a = 1;
