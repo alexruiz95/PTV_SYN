@@ -78,7 +78,7 @@ min_len = 4;
 traj=ptv_is_to_traj(test,start,last,min_len,dt);
 plot_long_trajectories(traj,min_len);
 title('Burgers Vortex')
-
+saveas(gcf,'Burgers_traj.png')
 
 
 %-dep-%
