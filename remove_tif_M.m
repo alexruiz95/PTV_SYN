@@ -1,9 +1,10 @@
+function remove_tif_M(folder)
 % UGLY BUT WORKS 
 % Just run this it should work.
 
 % Where are the Cam1, Cam2 .. etc folder 
-path = 'test/img/';
-
+% path = 'test/img/';
+path = [folder,'/'];
 % What is the file extension
 exten = '.tiff' ; 
 
@@ -24,4 +25,5 @@ for i = 1:4
         rename2 = strcat(fold,'\Cam',num2str(i),'\',f,ext);
         movefile(rename2, rename);
     end
+end
 end
