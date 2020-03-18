@@ -9,14 +9,14 @@
 addpath('plotting_camera');
 addpath('ptvcodes');
 addpath('test');
-
+addpath('Burger');
 % SPECIFY INPUT REQUIRED
 % Working folder
-work_dir = 'nodistort_test';
+work_dir = 'Burger';
 
 % Working calibration folder 
 % 'working_folder_name/cal'
-cal_dir = [work_dir,'/cal]';
+cal_dir = [work_dir,'/cal'];
 % Generate the calibration Images  
 % Same for all data 
 calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',true,'generate_ori', true)
@@ -44,7 +44,7 @@ makeImages2('outdir',img_dir,'save',true,'plot',true);
 % makeImages3('outdir',img_dir,'save',true,'plot',true);
 
 %---------------% REMOVE TIFF HEADER WITHT HIS FUNCTION %-----------------%
-remove_tif_M(img_dir)
+remove_tif_M(img_dir);
 
 
 %---------------------------% RUN PTV %-----------------------------------%
