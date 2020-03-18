@@ -48,7 +48,7 @@ function calImages = calTargetMultiView(varargin)
     
     % Generate Ori 
     if Generate_ori
-        Generate_ORI_files()
+        Generate_ORI_files('ori_dir',cal_out)
     end
     
     % Open a new figure
