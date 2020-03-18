@@ -12,11 +12,11 @@ addpath('test');
 
 % SPECIFY INPUT REQUIRED
 % Working folder
-work_dir = 'test';
+work_dir = 'JHU';
 
 % Working calibration folder 
 % 'working_folder_name/cal'
-cal_dir = [work_dir,'/cal]';
+cal_dir = [work_dir,'/cal'];
 % Generate the calibration Images  
 % Same for all data 
 calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',true,'generate_ori', true)
@@ -81,8 +81,8 @@ min_len = 4;
 % main = 'C:\Users\alex\OneDrive - Knights - University of Central Florida\Documents\research_xray\CODE_MAIN\TEST DATA FOR PTV\';
 % folder = fullfile(main,test,'res0');
 
-traj=ptv_is_to_traj(test,start,last,min_len,dt);
-plot_long_trajectories(traj,min_len);
+traj_RC=ptv_is_to_traj(test,start,last,min_len,dt);
+plot_long_trajectories(traj_RC,min_len);
 title('Turbulent Flow- Reconstruction')
 saveas(gcf,'turb_flow_reconstruct.png')
 
@@ -95,10 +95,17 @@ for time = 1:length(t)
         Y(time,:) = x(time,1:N_TRAJ,2);
         Z(time,:) = x(time,1:N_TRAJ,3);
 end
+scale = 20;
+X=(X-((max(max(X))+min(min(X)))/2))/scale ;
+Y=(Y-((max(max(Y))+min(min(Y)))/2))/scale ;
+Z=(Z-((max(max(Z))+min(min(Z)))/2))/scale ;
+
 traj_GT = pos_to_traj(X,Y,Z,dt)
 plot_long_trajectories(traj_GT,min_len)
 title('Turbulent Flow-Ground Truth')
 saveas(gcf,'turb_flow_GT.png')
+
+
 %-dep-%
 % -------------- % 
 % PARAMS.g = 5;
