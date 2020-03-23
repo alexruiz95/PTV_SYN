@@ -25,7 +25,7 @@ calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',
 
 
 % Generate the ORI Files for initial guess (exact) Manually with 
-% Generate_ORI_files()
+Generate_ORI_files('ori_dir',cal_dir)
 % NOTE: CalTartMultiView Takes care of this
 
 % Make the images
