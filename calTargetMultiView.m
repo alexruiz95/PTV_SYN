@@ -12,8 +12,8 @@ function calImages = calTargetMultiView(varargin)
     addParameter(p, 'outbase', 'cam', @isstr); % File name 'Cam1.tif'
     addParameter(p, 'zeros', 1, @isnumeric); % filenames Best untouched 
     addParameter(p, 'extension', 'tif', @isstr); % File extension
-    addParameter(p, 'TargetFile', false, @islogical); % Save Target file?
-    addParameter(p, 'target_3D', false, @islogical); % WANT A 3D Target? %BETA 
+    addParameter(p, 'TargetFile', true, @islogical); % Save Target file?
+    addParameter(p, 'target_3D', true, @islogical); % WANT A 3D Target? %BETA 
     addParameter(p, 'plot_camera', false, @islogical); %SHOW CAMERA PLACMENT
     addParameter(p, 'make_axis', false ,@islogical); % DEBUG DIRECTION %DEV 
     addParameter(p, 'generate_ori', false, @islogical); % Generate ORI FILES FOR PTV
@@ -55,7 +55,9 @@ function calImages = calTargetMultiView(varargin)
     if makePlots
         figure;
     end
-    
+    disp('WORKING FOLDER :')
+    disp(cal_out)
+
     for k = 1 : length(Cameras)
 
         % Ger the current camera
@@ -142,16 +144,19 @@ function calImages = calTargetMultiView(varargin)
             % If plot camera function not found use free version
             figure;
             plotCameraArrangement2('Cameras', Cameras, 'points', [xc(:), yc(:), zc(:)]);
+        end
     end
-    
     if MakeTargetFile
-        [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D,'make_axis',MakeAxis);
+%         [x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :),'target_3D',target3D,'make_axis',MakeAxis);
+        [x,y,z, xc, yc, zc] = calibrationTarget('target_3D',target3D,'make_axis',MakeAxis);
+
         %[x,y,z, xc, yc, zc] = calibrationTarget('origin', targetOrigin(n, :));
         count = 1:length(xc);
         M = [count',xc*1000,yc*1000,zc*1000];
 %         dlmwrite('test2/cal/target_file.txt',M,'delimiter','\t');
         fil_name = [cal_out,'/target_file.txt'];
         dlmwrite(fil_name,M,'delimiter','\t');
+        disp('Target File created')
     end
     % Draw the frame
     drawnow();
