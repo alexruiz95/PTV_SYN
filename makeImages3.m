@@ -17,7 +17,7 @@ addParameter(p, 'xrange', [-.25, .25]); %
 addParameter(p, 'yrange', [-.25, .25]);
 addParameter(p, 'zrange', [-.2, 0.2]);
 addParameter(p, 'particleConcentration', 1.5e4, @isnumeric);
-addParameter(p, 'tspan', linspace(0,0.01, 100), @isnumeric);
+addParameter(p, 'tspan', linspace(0,0.01, 20), @isnumeric);
 addParameter(p, 'particleDiameterMean', 1.5*sqrt(8), @isnumeric); % 1.5
 addParameter(p, 'particleDiameterStdDev', 0.10 * sqrt(8), @isnumeric);
 addParameter(p, 'beamStdDev', 0.05, @isnumeric);
@@ -93,10 +93,14 @@ elseif generate_data
     disp('GEN NEW POS')
 end
 
-scale = 20;
-X=(X-((max(max(X))+min(min(X)))/2))/scale ;
-Y=(Y-((max(max(Y))+min(min(Y)))/2))/scale ;
-Z=(Z-((max(max(Z))+min(min(Z)))/2))/scale ;
+% scale = 20;
+% X=(X-((max(max(X))+min(min(X)))/2))/scale ;
+% Y=(Y-((max(max(Y))+min(min(Y)))/2))/scale ;
+% Z=(Z-((max(max(Z))+min(min(Z)))/2))/scale ;
+% 
+% X = X*10;
+% Y = Y*10;
+% Z = Z*10;
 
 % Save Particle Positions
 if Save_particle_trajctories
