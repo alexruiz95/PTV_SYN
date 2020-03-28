@@ -12,7 +12,7 @@ addpath('test');
 
 % SPECIFY INPUT REQUIRED
 % Working folder
-work_dir = 'JHU';
+work_dir = 'JHU2';
 
 % Working calibration folder 
 % 'working_folder_name/cal'
@@ -20,12 +20,13 @@ cal_dir = [work_dir,'/cal'];
 % Generate the calibration Images  
 % Same for all data 
 calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',true,'generate_ori', true)
+
 % This code will save the images to the specified directory, create a
 % target file, generate the ori files for a 3D calibration plate
 
 
 % Generate the ORI Files for initial guess (exact) Manually with 
-Generate_ORI_files('ori_dir',cal_dir)
+%Generate_ORI_files('ori_dir',cal_dir)
 % NOTE: CalTartMultiView Takes care of this
 
 % Make the images
@@ -66,16 +67,18 @@ remove_tif_M(img_dir)
 % It should work after this.
 
 
+
 %----------------------% Perform Tracking %-------------------------------%
 
 %----------------------% Post Processsing %-------------------------------%
 % In the PTVCODES run the code run_this.m to inspect the tracks
+
 test=['C:\Users\alex\Desktop\og\PTV_SYN\',work_dir,'\res'];
 % test='C:\Users\alex\Desktop\og\PTV_SYN\test\Copy_of_res';
-start = 10002;
-last = 10099;
+start = 10020;
+last = 10090;
 dt=1/100;
-min_len = 4;
+min_len = 2;
 %------
 
 % main = 'C:\Users\alex\OneDrive - Knights - University of Central Florida\Documents\research_xray\CODE_MAIN\TEST DATA FOR PTV\';
@@ -95,10 +98,15 @@ for time = 1:length(t)
         Y(time,:) = x(time,1:N_TRAJ,2);
         Z(time,:) = x(time,1:N_TRAJ,3);
 end
-scale = 20;
-X=(X-((max(max(X))+min(min(X)))/2))/scale ;
-Y=(Y-((max(max(Y))+min(min(Y)))/2))/scale ;
-Z=(Z-((max(max(Z))+min(min(Z)))/2))/scale ;
+
+% scale = 20;
+% X=(X-((max(max(X))+min(min(X)))/2))/scale ;
+% Y=(Y-((max(max(Y))+min(min(Y)))/2))/scale ;
+% Z=(Z-((max(max(Z))+min(min(Z)))/2))/scale ;
+
+X = X*10;
+Y = Y*10;
+Z = Z*10;
 
 traj_GT = pos_to_traj(X,Y,Z,dt)
 plot_long_trajectories(traj_GT,min_len)
