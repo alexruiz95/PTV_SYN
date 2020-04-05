@@ -165,5 +165,3 @@ function calImages = calTargetMultiView(varargin)
 end
 
 
-
-
