@@ -6,8 +6,8 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'dotSpacing', 0.032, @isnumeric); %  0.0254
-    addParameter(p, 'dotDiameter', 0.00025, @isnumeric); % changed 0.005
+    addParameter(p, 'dotSpacing', 0.0032, @isnumeric); %  0.0254,0.032
+    addParameter(p, 'dotDiameter', 0.000025, @isnumeric); % changed 0.005
     addParameter(p, 'rows', 5, @isnumeric); % changed 9
     addParameter(p, 'columns', 5, @isnumeric); % changed 9
     addParameter(p, 'origin', [0,0,0], @isnumeric);
