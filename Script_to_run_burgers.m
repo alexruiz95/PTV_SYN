@@ -76,7 +76,9 @@ min_len = 4;
 % folder = fullfile(main,test,'res0');
 
 traj=ptv_is_to_traj(test,start,last,min_len,dt);
-plot_long_trajectories(traj,min_len);
+axf = 1705 ; 
+traj_new = traj_vel_filter(traj,axf);
+plot_long_trajectories(traj_new,min_len);
 title('Burgers Vortex')
 saveas(gcf,'Burgers_traj.png')
 
