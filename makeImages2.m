@@ -15,7 +15,7 @@ addParameter(p, 'zeros', 4, @isnumeric);
 addParameter(p, 'velocityFunction', @burgersVortex, @isFunctionHandle); % Our Velocity function 
 addParameter(p, 'xrange', [-.25, .25]); % 
 addParameter(p, 'yrange', [-.25, .25]);
-addParameter(p, 'zrange', [0, 0.2]); %[-.2, 0.2]);
+addParameter(p, 'zrange', [0, 0.1]); %[-.2, 0.2]);
 addParameter(p, 'particleConcentration', 1.5e4, @isnumeric);
 addParameter(p, 'tspan', linspace(0,0.01, 20), @isnumeric);
 addParameter(p, 'particleDiameterMean', 1.5*sqrt(8), @isnumeric); % 1.5
@@ -71,35 +71,32 @@ zo = zrange(1) + (zrange(2) - zrange(1)) * rand(n_particles, 1);
 xo=(xo./4)*.1;
 yo=(yo./4)*.1;
 zo=(zo./4)*.1;
-% [xo1,yo1,zo1] = make_axis3();
-% xo=cat(1,xo(:),xo1(:)*.08);
-% yo=cat(1,yo(:),yo1(:)*.08);
-% zo=cat(1,zo(:),zo1(:)*.1);
+
 use_existing_pos = true ;
 
-% if use_existing_pos
-%     load('Pos.mat')
-%     X = Pos.x ;
-%     Y = Pos.y ;
-%     Z = Pos.z ;
-%     disp('USEING EXISTING')
-% else 
-%     % Calculate the particle trajectories
-%     [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
-%     disp('GEN NEW POS')
-% end
+if use_existing_pos
+    load('Pos.mat')
+    X = Pos.x ;
+    Y = Pos.y ;
+    Z = Pos.z ;
+    disp('USEING EXISTING')
+else 
+    % Calculate the particle trajectories
+    [X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
+    disp('GEN NEW POS')
+end
 
 
-% % Save Particle Positions
-% if Save_particle_trajctories
-%     Pos.x=X;
-%     Pos.y=Y;
-%     Pos.z=Z;
-%     save('Pos.mat','Pos')
-%     disp('SAVED')
-% end
+% Save Particle Positions
+if Save_particle_trajctories
+    Pos.x=X;
+    Pos.y=Y;
+    Pos.z=Z;
+    save('Pos.mat','Pos')
+    disp('SAVED')
+end
 
-[X, Y, Z] = velocityFunction(xo, yo, zo, tSpan, velFnParams);
+
 
 
 
