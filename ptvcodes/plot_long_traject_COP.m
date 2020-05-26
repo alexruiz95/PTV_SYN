@@ -50,8 +50,14 @@ for i = 1:length(id)
         'MarkerFaceColor','w','Marker','>',...
         'MarkerSize',6);
 end
+% SET THE VIEW 
+v = [-10 -8 2];
+[caz,cel] = view(v)
 hold off
-title(title1)
+title(title1,'fontsize', 14, 'interpreter', 'latex')
+axis tight
+
+
 % ----  --------------traj2 ---------------------------%
 trajLen = zeros(length(traj2),1);
 only_long = isfield(traj2,'trajid');
@@ -66,9 +72,9 @@ if only_long % we can select according to length
 else % we cannot, take everything?
     id = 1:length(traj2);
 end
-xlabel('$x$ ','Interpreter','Latex');
-ylabel('$y$ ','Interpreter','Latex');
-zlabel('$z$ ','Interpreter','Latex');
+xlabel('x (m)', 'fontsize', 12, 'interpreter', 'latex');
+ylabel('y (m)', 'fontsize', 12, 'interpreter', 'latex');
+zlabel('z (m)', 'fontsize', 12, 'interpreter', 'latex');
 grid on
 for i = 1:length(id)
     subplot(1,2,2);
@@ -84,11 +90,13 @@ end
 hold off
 
 % Create labels
-xlabel('$x$ ','Interpreter','Latex');
-ylabel('$y$ ','Interpreter','Latex');
-zlabel('$z$ ','Interpreter','Latex');
+xlabel('x (mm)', 'fontsize', 12, 'interpreter', 'latex');
+ylabel('y (mm)', 'fontsize', 12, 'interpreter', 'latex');
+zlabel('z (mm)', 'fontsize', 12, 'interpreter', 'latex');
 grid on
-title(title2)
+title(title2,'fontsize', 14, 'interpreter', 'latex')
+[caz,cel] = view(v)
+axis tight
 
 if nargout == 1
     varargout{1} = figure1;
@@ -96,4 +104,3 @@ elseif nargout == 2
     varargout{1} = figure1;
     varargout{2} = TrajLen;
 end
-view(3)

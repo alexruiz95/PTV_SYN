@@ -1,19 +1,28 @@
 
-test='C:\Users\alex\Desktop\og\PTV_SYN\test2\res';
+% test='C:\Users\alex\Desktop\og\PTV_SYN\nodistort_test\res';
+% test='C:\Users\alex\TEST DATA FOR PTV\test1_flat\res0';
+% test = 'C:\Users\alex\Desktop\big_tank_ptv_new2\big_tank\res';
+test = 'C:\Users\alex\Desktop\og\PTV_SYN\Burger\res';
 start = 10001;
-last = 10020;
+last = 10019;
 dt=1/100;
-min_len = 4;
+min_len = 2;
 %------
 
 % main = 'C:\Users\alex\OneDrive - Knights - University of Central Florida\Documents\research_xray\CODE_MAIN\TEST DATA FOR PTV\';
-% folder = fullfile(main,test,'res0');
+% folder = fullfile(main,test,'res0');r
+
 
 traj = ptv_is_to_traj(test,start,last,min_len,dt);
-plot_long_trajectories(traj,min_len);
 
+axf = 1705 ; 
+traj_new = traj_vel_filter(traj,axf);
 
-
+plot_long_trajectories(traj,10);
+title('Trajectories')
+% SET THE CAM LINE OF SIGHT 
+v = [5 -3 4];
+[caz,cel] = view(v)
 % plot ground truth 
 %traject = pos_to_traj_2(Pos,dt)
 

@@ -38,19 +38,19 @@ if nargin < 3 % new figure, use markers
     hold('all');
     
     % Create labels
-    xlabel('$x$','Interpreter','Latex');
-    ylabel('$z$','Interpreter','Latex');
-    zlabel('$y$','Interpreter','Latex');
+    xlabel('$x$ (mm)','Interpreter','Latex');
+    ylabel('$z$ (mm)','Interpreter','Latex');
+    zlabel('$y$ (mm)','Interpreter','Latex');
     
     for i = 1:length(id)
         %     plot3(traj(id(i)).xf/1000,traj(id(i)).yf/1000,traj(id(i)).zf/1000,...
         plot3(traj(id(i)).xf,traj(id(i)).zf,traj(id(i)).yf,...
             'MarkerFaceColor','w','Marker','o',...
-            'MarkerSize',6,...
+            'MarkerSize',4,...
             'UserData',traj(id(i)).trajid(1));
         plot3(traj(id(i)).xf(1),traj(id(i)).zf(1),traj(id(i)).yf(1),...
             'MarkerFaceColor','w','Marker','>',...
-            'MarkerSize',8);
+            'MarkerSize',6);
     end
 else % old figure, adding trajectories single color, single marker
     figure1 = figure(figureNum);

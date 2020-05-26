@@ -30,7 +30,7 @@ for n = 1 : length(Cameras)
    
    % Plot the camera
    plotCamera('location', C, 'orientation', ...
-       Rc, 'label', sprintf('%d', n), 'color', 'w', 'size', 0.05, 'axesvisible', false);
+       Rc, 'label', sprintf('%d', n), 'color', 'w', 'size', 0.01, 'axesvisible', false);
    hold on;
     
 end
