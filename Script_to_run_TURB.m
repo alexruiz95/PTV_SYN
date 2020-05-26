@@ -12,7 +12,7 @@ addpath('test');
 
 % SPECIFY INPUT REQUIRED
 % Working folder
-work_dir = 'JHU2';
+work_dir = 'JHU';
 
 % Working calibration folder 
 % 'working_folder_name/cal'
@@ -86,8 +86,10 @@ min_len = 5;
 
 traj_RC=ptv_is_to_traj(test,start,last,min_len,dt);
 plot_long_trajectories(traj_RC,min_len);
+v = [10 -8 2];
+[caz,cel] = view(v)
 title('Turbulent Flow- Reconstruction')
-% saveas(gcf,'turb_flow_reconstruct.png')
+% saveas(gcf,'figure\turb_flow_reconstruct.png')
 
 % Ground TRUTH DATA
 % Load the data 
@@ -97,7 +99,7 @@ load('test.mat')
 N_TRAJ = 100 ;
 dt=1/100;
 min_len = 2;
-for time = 1:length(t)
+for time = 1:75
         X(time,:) = x(time,1:N_TRAJ,1);
         Y(time,:) = x(time,1:N_TRAJ,2);
         Z(time,:) = x(time,1:N_TRAJ,3);
@@ -112,11 +114,11 @@ X1 = (X - mean(mean(X)));
 Y1 = (Y - mean(mean(Y)));
 Z1 = (Z - min(min(Z)));
 % PLOT
-plot3(X1,Y1,Z1,'.')
-xlabel('x');ylabel('y');zlabel('z')
+% plot3(X1,Y1,Z1,'.')
+% xlabel('x');ylabel('y');zlabel('z')
 traj_GT = pos_to_traj(X1,Y1,Z1,dt);
-% traj_GT_mm = pos_to_traj(X1./1000,Y1./1000,Z1./1000,dt)
-plot_long(traj_GT,min_len)
+% % traj_GT_mm = pos_to_traj(X1./1000,Y1./1000,Z1./1000,dt)
+% plot_long(traj_GT,min_len)
 % plot_long_trajectories(traj_GT,min_len)
 set(gca,'xdir','reverse')
 set(gca, 'ydir', 'reverse')
