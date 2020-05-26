@@ -24,7 +24,7 @@ calTargetMultiView('save',true,'cal_dir',cal_dir,'TargetFile', true,'target_3D',
 % target file, generate the ori files for a 3D calibration plate
 
 % Generate the ORI Files for initial guess (exact) Manually with 
-% Generate_ORI_files()
+Generate_ORI_files('ori_dir',cal_dir)
 % NOTE: CalTartMultiView Takes care of this
 
 % Make the images
@@ -66,7 +66,7 @@ remove_tif_M(img_dir);
 
 test=['C:\Users\alex\Desktop\og\PTV_SYN\',work_dir,'\res'];
 % test='C:\Users\alex\Desktop\og\PTV_SYN\test\Copy_of_res';
-start = 10002;
+start = 10001;
 last = 10020;
 dt=1/100;
 min_len = 4;
@@ -76,11 +76,28 @@ min_len = 4;
 % folder = fullfile(main,test,'res0');
 
 traj=ptv_is_to_traj(test,start,last,min_len,dt);
-axf = 1705 ; 
-traj_new = traj_vel_filter(traj,axf);
-plot_long_trajectories(traj_new,min_len);
+% axf = 1705 ; 
+% traj_new = traj_vel_filter(traj,axf);
+plot_long_trajectories(traj,min_len);
+plot_long(traj_new,min_len);
 title('Burgers Vortex')
 saveas(gcf,'Burgers_traj.png')
+
+
+load('Pos.mat')
+X = Pos.x ;
+Y = Pos.y ;
+Z = Pos.z ;
+dt = 1/100;
+traj_GT_Burg = pos_to_traj(X,Y,Z,dt);
+plot_long_trajectories(traj_GT_Burg,5)
+
+% SCALE 
+
+traj_GT_Burg_scaled = scale_traj(traj_GT_Burg,1000);
+
+plot_long_traject_COP(traj_GT_Burg_scaled,'Burger scaled',traj_GT_Burg,'unscaled',4)
+
 
 
 %-dep-%
