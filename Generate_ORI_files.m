@@ -1,5 +1,16 @@
 function Generate_ORI_files(varargin)
 % Generate the ori FILES 
+% This code will generate the ORI file for OpenPTV. The file that is
+% produce is in the form: 
+% X Y Z 
+% theta_x theta_y theta_z 
+% [3x3] Orientation Matrix 
+% xp yp camera sensor offsets
+% Back Focal Distance (still some uncertainity here) 
+% interface postion x y z 
+
+% Note: When the focal distance defined in defaultcamera.m is .105 the back
+% focal of 40 works. & for value of .205 80 works. 
 
 % Input parser
 p = inputParser;
