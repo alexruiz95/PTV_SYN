@@ -2,6 +2,13 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
 % Makes [x,y,z] coordinates that can be passed to generateParticleImage 
 % to create an image of a camera calibration target.
 
+% Needs to be updated for more parametric design. That is where one can
+% pass in the bounds in the 3 dimensions. xmin xmax ymin ymax zmin zmax
+% and generate the points from these spatial bounds. 
+% Currently it operates as a function of dot spacing which works great as
+% well. 
+
+
     % Input parser
     p = inputParser;
 
