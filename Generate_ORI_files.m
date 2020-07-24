@@ -1,7 +1,7 @@
 function Generate_ORI_files(varargin)
 % Generate the ori FILES 
-% This code will generate the ORI file for OpenPTV. The file that is
-% produce is in the form: 
+% This code will generate the ORI file for OpenPTV. This serves as a really
+% good initial guess. The file that is produce is in the form: 
 % X Y Z 
 % theta_x theta_y theta_z 
 % [3x3] Orientation Matrix 
