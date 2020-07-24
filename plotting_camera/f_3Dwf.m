@@ -63,6 +63,7 @@ plot3(Ywf(1),Ywf(2),Ywf(3),col);
 col=strcat(color,'^');
 plot3(Zwf(1),Zwf(2),Zwf(3),col);
  % AR CHANGED THIS 
-text(Xwf(1),Xwf(2),Xwf(3),strcat('X',axislabel),'Color',color)
-text(Ywf(1),Ywf(2),Ywf(3),strcat('Y',axislabel),'Color',color)
-text(Zwf(1),Zwf(2),Zwf(3),strcat('Z',axislabel),'Color',color)
+text(Xwf(1),Xwf(2),Xwf(3),strcat('  X',axislabel),'Color',color)
+text(Ywf(1),Ywf(2),Ywf(3),strcat('  Y',axislabel),'Color',color)
+text(Zwf(1),Zwf(2),Zwf(3),strcat('  Z',axislabel),'Color',color)
+set(gca,'FontName','Times')
