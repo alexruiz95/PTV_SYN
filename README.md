@@ -11,4 +11,4 @@ Will be the version that generates the final set of data.
 
 7/25/2020
 
-![Tracks](tracks.svg)
+![Tracks](Complete_data_path_universal_JHU.png)
