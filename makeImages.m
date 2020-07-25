@@ -109,13 +109,15 @@ if Save_particle_trajectories
     Particle_pos.y=Y;
     Particle_pos.z=Z;
     dir_for_save = out_root(1:end-4);
-    save_pos_file_name = [dir_for_save,'\Particle_pos.mat'];
-%     dummy=0;
-%     if exist(save_pos_file_name)
-%         save_pos_file_name = [save_pos_file_name,'_',num2str(dummy+1),'.mat'];
-%     end
-
-    save(save_pos_file_name,'Particle_pos');
+    ext = '.mat';
+    kk=0;
+    file_name = 'Particle_pos';
+    filename = sprintf('%s\\%s_%s',dir_for_save,file_name,ext)
+    while exist(filename)
+        kk = kk + 1;
+        filename = sprintf('%s\\%s_%d%s',dir_for_save,file_name,kk,ext)
+    end
+    save(filename,'Particle_pos');
     disp('Saving generated dataset')
 end
 
