@@ -30,7 +30,7 @@ addParameter(p, 'save_positions', false, @islogical);
 % Parse the arguments
 parse(p, varargin{:});
 
-Save_particle_trajctories = p.Results.save_positions;
+Save_particle_trajectories = p.Results.save_positions;
 Cameras = p.Results.cameras;
 out_root = p.Results.outdir;
 out_base = p.Results.outbase;
@@ -56,7 +56,7 @@ fmtStr = sprintf('%%0%dd', nZeros);
 outNameFmt = sprintf('%s%s.%s', out_base, fmtStr, out_ext);
 
 testVolume = diff(xrange) * diff(yrange) * diff(zrange);
-n_particles = particle_concentration * testVolume;
+n_particles = int64(particle_concentration * testVolume);
 
 % Create a normal distribution of particle diameters
 particleDiameters = abs(particle_diameter_std * randn(n_particles, 1) ...
