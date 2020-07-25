@@ -2,18 +2,14 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
 % Makes [x,y,z] coordinates that can be passed to generateParticleImage 
 % to create an image of a camera calibration target.
 
-% Needs to be updated for more parametric design. That is where one can
-% pass in the bounds in the 3 dimensions. xmin xmax ymin ymax zmin zmax
-% and generate the points from these spatial bounds. 
-% Currently it operates as a function of dot spacing which works great as
-% well. 
-
+% Works for spacing in 3D dimensions now. 
 
     % Input parser
     p = inputParser;
 
     % Add optional inputs
-    addParameter(p, 'dotSpacing', 0.0032, @isnumeric); %  0.0254,0.032
+    addParameter(p, 'dotSpacing', 0.0032, @isnumeric); %  0.0254,0.032 % XY directions
+    addParameter(p, 'dotSpacing_z', 0.0016, @isnumeric); %  0.0254,0.032 % Z direction
     addParameter(p, 'dotDiameter', 0.000025, @isnumeric); % changed 0.005
     addParameter(p, 'rows', 5, @isnumeric); % changed 9
     addParameter(p, 'columns', 5, @isnumeric); % changed 9
@@ -28,6 +24,7 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     % Results structure
     target3D = p.Results.target_3D;
     dot_spacing_m = p.Results.dotSpacing;
+    dot_spacing_m_z = p.Results.dotSpacing_z;
     dot_diameter_m   = p.Results.dotDiameter;
     dot_rows = p.Results.rows;
     dot_cols = p.Results.columns;
@@ -43,28 +40,31 @@ function [x,y,z, xc, yc, zc] = calibrationTarget(varargin)
     % Width of target (center of first dot to center of last dot)
     targetWidth =  (dot_cols - 1) * dot_spacing_m;
     targetHeight = (dot_rows - 1) * dot_spacing_m;
+    targetDepth = (dot_cols - 1) * dot_spacing_m_z;
     
     % Dot centers
     xv = linspace(-targetWidth/2, targetWidth/2, dot_cols)   + target_origin(1);
     % lets flip yv here so our points are in the same order for PTV
     % that is left to right top to bottom
-    %yv = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(2);
     yv = linspace(targetHeight/2, -targetHeight/2, dot_rows) + target_origin(2);
-    zv = target_origin(3);
-    zv1 = linspace(-targetHeight/2, targetHeight/2, dot_rows) + target_origin(3);
+    zv = linspace(-targetDepth/2, targetDepth/2, dot_cols) + target_origin(3);
+    zv = abs(zv);
 
-    
+
+  
+
     % Make a grid of dot centers
-    % lets flip yv here so our points are in the same order for PTV
-    % that is left to right top to bottom
-%     [xdots, ydots, zdots] = meshgrid(xv, yv, zv);
-    % Better to use ndgrid
-    [xdots, ydots, zdots] = ndgrid(xv, yv, zv);
     if target3D
-            % Make a grid of dot centers
-        [xx,zz] = meshgrid(xv, zv1);
-        zz=sqrt(zz.^2);
-        zdots=zz/2;
+        % Better to use ndgrid
+        [xdots, ydots, zdots] = ndgrid(xv, yv, zv);
+        xdots = squeeze(xdots(:,:,1));
+        ydots = squeeze(ydots(:,:,1));
+        zdots  = squeeze(zdots(1,:,:)).';
+    else
+%         % Make a planer set of points using default method
+        zv = target_origin(3);
+        [xdots, ydots] = ndgrid(xv, yv);
+        zdots = zeros(size(xdots)) + zv;
     end
     
     % used to check image direction 
