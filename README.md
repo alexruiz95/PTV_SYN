@@ -1,6 +1,6 @@
 # PTV_SYN
 
-A software for generating multi camera particle images for 3D Particle Tracking Velocimetry. This suit will generate a complete working folder for which PyPTV can process. Calibration images with Calibration file and sequence of particle images for each camera view. 
+A software for generating multi camera particle images for 3D Particle Tracking Velocimetry. This suit will generate a complete working folder for which PyPTV can process. For each camera, the software will generate the calibration image, calibration file, and sequence of particle images. 
 
 This code was developed with the help of matthew giarra. The initial base source code for image generation can be found here: https://github.com/matthewgiarra/piv-image-gen-multicam
 
