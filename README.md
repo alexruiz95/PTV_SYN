@@ -8,7 +8,7 @@ This is the latest branch and will be used as the master.
 
 I organized it, removed junk and added robust functions. 
 
-Tutorial for JHU and Burgers. 
+Tutorial for JHU turbuelence data and analytical Burgers vortex are included.
 
 Will be the version that generates the final set of data. 
 
