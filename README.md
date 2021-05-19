@@ -14,4 +14,10 @@ Will be the version that generates the final set of data.
 
 7/25/2020
 
+Contact: 
+    Alex Ruiz 
+    alex.ruiz.eng@gmail.com
+    alexruiz95@knights.ucf.edu 
+
+
 ![Tracks](Complete_data_path_universal_JHU.png)
